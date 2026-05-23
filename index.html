@@ -13,125 +13,145 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    html,
-    body {
+    html, body {
       margin: 0;
       width: 100%;
       height: 100%;
       overflow: hidden;
+      background: #7bd6ff;
       font-family: "Comic Sans MS", "Trebuchet MS", Arial, sans-serif;
       color: #3b2414;
-      background: #8fd3ff;
       touch-action: manipulation;
+    }
+
+    body {
+      position: fixed;
+      inset: 0;
     }
 
     button {
       font-family: inherit;
     }
 
-    .game {
-      width: 100vw;
-      height: 100dvh;
-      min-height: 100vh;
+    #fitArea {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(180deg, #7bd6ff, #fff0b8);
       display: flex;
-      flex-direction: column;
-      background: #8fd3ff;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    #gameShell {
+      width: 1000px;
+      height: 620px;
+      transform-origin: center center;
+      position: relative;
+      background: #ffdca3;
+      border: 8px solid #7a3f17;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.25);
     }
 
     .top {
-      height: 104px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1000px;
+      height: 86px;
       background: #fff4cf;
       border-bottom: 5px solid #c78132;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      padding: 10px 14px;
-      z-index: 200;
-      flex-shrink: 0;
+      padding: 9px 12px;
+      z-index: 50;
     }
 
     .title {
-      font-size: 29px;
+      font-size: 27px;
       font-weight: 900;
       color: #7a3f17;
       text-shadow: 2px 2px #ffd36f;
-      line-height: 1.05;
+      line-height: 1;
     }
 
     .subtitle {
-      font-size: 13px;
-      color: #86582b;
-      max-width: 700px;
+      font-size: 12px;
+      color: #7b5426;
+      font-weight: 700;
+      margin-top: 3px;
     }
 
-    .top-buttons {
+    .topButtons {
       display: flex;
       gap: 7px;
       flex-wrap: wrap;
       justify-content: flex-end;
+      max-width: 455px;
     }
 
-    .top-btn,
-    .room-btn,
-    .start-button {
-      border: none;
-      border-radius: 16px;
-      padding: 9px 11px;
-      font-weight: 900;
-      font-size: 12px;
+    .btn {
+      border: 3px solid #8d551e;
+      border-radius: 15px;
+      background: white;
       color: #3b2414;
-      background: #ffffff;
-      border: 3px solid #bf7b2f;
-      box-shadow: 0 4px 0 #8d551e;
+      padding: 7px 9px;
+      font-size: 13px;
+      font-weight: 900;
       cursor: pointer;
+      box-shadow: 0 4px 0 #8d551e;
     }
 
-    .top-btn.on {
+    .btn.on {
       background: #b9f5ff;
     }
 
-    .top-btn:active,
-    .room-btn:active,
-    .start-button:active {
+    .btn:active {
       transform: translateY(3px);
       box-shadow: 0 1px 0 #8d551e;
     }
 
-    .main {
-      flex: 1;
-      display: flex;
-      min-height: 0;
-    }
-
-    .side {
-      width: 140px;
+    .rooms {
+      position: absolute;
+      left: 0;
+      top: 86px;
+      width: 128px;
+      height: 534px;
       background: #ffe29a;
       border-right: 5px solid #cf9140;
-      padding: 10px 8px;
+      z-index: 40;
+      padding: 9px 7px;
       display: flex;
       flex-direction: column;
       gap: 8px;
-      z-index: 180;
-      overflow-y: auto;
-      flex-shrink: 0;
     }
 
-    .room-btn {
-      color: #4c290f;
+    .roomBtn {
+      min-height: 42px;
+      border: 3px solid #8d551e;
+      border-radius: 14px;
       background: #fff7db;
-      padding: 10px 6px;
+      color: #4c290f;
       font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 3px 0 #8d551e;
     }
 
-    .room-btn.active {
+    .roomBtn.active {
       background: #ffbf47;
       outline: 3px solid white;
     }
 
     .scene {
-      position: relative;
-      flex: 1;
+      position: absolute;
+      left: 128px;
+      top: 86px;
+      width: 872px;
+      height: 534px;
       overflow: hidden;
       background: #ffdca3;
     }
@@ -144,164 +164,147 @@
 
     .wall {
       position: absolute;
-      inset: 0 0 auto 0;
+      left: 0;
+      right: 0;
+      top: 0;
       height: 58%;
       background: linear-gradient(180deg, #ffd48a, #ffe1ad);
     }
 
     .floor {
       position: absolute;
-      inset: auto 0 0 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       height: 42%;
+      border-top: 6px solid #8b4b24;
       background: repeating-linear-gradient(
         90deg,
-        #c98746 0px,
-        #c98746 54px,
-        #b87336 54px,
-        #b87336 60px
+        #c98746 0,
+        #c98746 50px,
+        #b87336 50px,
+        #b87336 57px
       );
-      border-top: 6px solid #8b4b24;
     }
 
-    .outside-bg {
+    .outside {
       position: absolute;
       inset: 0;
       background: linear-gradient(180deg, #78d7ff 0%, #b9f5ff 52%, #8ddb6c 53%, #5fbe49 100%);
     }
 
-    .garage-bg {
+    .garageBg {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, #aeb8c1 0%, #d7dde2 55%, #777 56%, #555 100%);
+      background: linear-gradient(180deg, #b5bec7 0%, #d7dde2 55%, #777 56%, #555 100%);
     }
 
-    .school-bg {
+    .schoolBg {
       position: absolute;
       inset: 0;
       background: linear-gradient(180deg, #bdefff 0%, #fff2b8 55%, #d49455 56%, #b87336 100%);
     }
 
-    .map-bg {
+    .mapBg {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, #d4f5ff 0%, #fff1bd 100%);
+      background: linear-gradient(180deg, #d4f5ff, #fff1bd);
     }
 
-    .room-name {
+    .roomName {
       position: absolute;
+      left: 14px;
       top: 12px;
-      left: 16px;
+      z-index: 20;
       background: rgba(255,255,255,0.94);
       border: 3px solid #ab6d2b;
       border-radius: 18px;
-      padding: 7px 13px;
-      font-size: 20px;
+      padding: 7px 12px;
+      font-size: 19px;
       font-weight: 900;
-      z-index: 60;
     }
 
     .inventory {
       position: absolute;
       top: 12px;
       right: 14px;
-      max-width: 46%;
+      z-index: 20;
       display: flex;
-      gap: 6px;
-      justify-content: flex-end;
+      gap: 5px;
       flex-wrap: wrap;
-      z-index: 65;
+      justify-content: flex-end;
+      max-width: 360px;
     }
 
     .slot {
       background: white;
       border: 3px solid #bf7b2f;
-      border-radius: 14px;
-      padding: 5px 8px;
-      min-width: 54px;
-      text-align: center;
+      border-radius: 13px;
+      padding: 4px 7px;
       font-size: 11px;
       font-weight: 900;
       box-shadow: 0 3px 0 #8d551e;
-      white-space: nowrap;
+    }
+
+    .clue {
+      position: absolute;
+      top: 64px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 190px;
+      min-height: 105px;
+      background: #fff8df;
+      border: 6px solid #ffbf47;
+      border-radius: 26px;
+      z-index: 24;
+      text-align: center;
+      padding: 8px;
+      box-shadow: 0 7px 0 rgba(0,0,0,0.2);
+    }
+
+    .clueIcon {
+      font-size: 44px;
+      line-height: 1;
+    }
+
+    .clueText {
+      font-size: 14px;
+      font-weight: 900;
+      margin-top: 6px;
     }
 
     .message {
       position: absolute;
       left: 50%;
-      bottom: 14px;
+      bottom: 12px;
       transform: translateX(-50%);
-      width: min(860px, 88vw);
-      min-height: 72px;
+      width: 800px;
+      min-height: 66px;
       background: #fff8df;
       border: 5px solid #8d551e;
       border-radius: 22px;
-      padding: 12px 18px;
-      z-index: 140;
+      z-index: 35;
+      padding: 10px 16px;
       font-size: 17px;
-      font-weight: 700;
-      box-shadow: 0 6px 0 rgba(0,0,0,0.18);
+      font-weight: 800;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      line-height: 1.25;
-    }
-
-    .bounce-message {
-      animation: popMessage 0.35s ease-in-out;
-    }
-
-    @keyframes popMessage {
-      0% { transform: translateX(-50%) scale(1); }
-      45% { transform: translateX(-50%) scale(1.04); }
-      100% { transform: translateX(-50%) scale(1); }
-    }
-
-    .picture-clue {
-      position: absolute;
-      top: 68px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 210px;
-      min-height: 118px;
-      background: #fff8df;
-      border: 6px solid #ffbf47;
-      border-radius: 28px;
-      z-index: 100;
-      text-align: center;
-      padding: 10px;
-      box-shadow: 0 7px 0 rgba(0,0,0,0.2);
-      animation: cluePop 0.35s ease-out;
-    }
-
-    .picture-clue .big-icon {
-      font-size: 50px;
-      line-height: 1;
-    }
-
-    .picture-clue .clue-text {
-      font-size: 15px;
-      font-weight: 900;
-      margin-top: 6px;
-    }
-
-    @keyframes cluePop {
-      0% { transform: translateX(-50%) scale(0.5); opacity: 0; }
-      100% { transform: translateX(-50%) scale(1); opacity: 1; }
+      box-shadow: 0 6px 0 rgba(0,0,0,0.18);
     }
 
     .peanut {
       position: absolute;
-      left: 50%;
-      bottom: 92px;
-      width: 88px;
-      height: 134px;
+      left: 392px;
+      bottom: 76px;
+      width: 78px;
+      height: 118px;
       background: #c9823b;
       border: 5px solid #7b4219;
       border-radius: 48% 48% 44% 44%;
-      z-index: 50;
-      box-shadow: inset 10px 0 #d99b58, 0 7px 0 rgba(0,0,0,0.18);
-      transform: translateX(-50%);
+      z-index: 18;
+      box-shadow: inset 9px 0 #d99b58, 0 7px 0 rgba(0,0,0,0.18);
     }
 
     .peanut.happy {
@@ -309,128 +312,135 @@
     }
 
     @keyframes peanutBounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(-10px); }
-    }
-
-    .peanut::before {
-      content: "";
-      position: absolute;
-      left: 13px;
-      top: 14px;
-      width: 53px;
-      height: 42px;
-      border-radius: 50%;
-      border-top: 5px solid rgba(90, 42, 13, 0.28);
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-9px); }
     }
 
     .eye {
       position: absolute;
-      top: 46px;
-      width: 12px;
-      height: 16px;
+      top: 39px;
+      width: 11px;
+      height: 15px;
       background: #21130a;
       border-radius: 50%;
     }
 
-    .eye.left { left: 21px; }
-    .eye.right { right: 21px; }
+    .eye.left { left: 18px; }
+    .eye.right { right: 18px; }
 
     .smile {
       position: absolute;
-      top: 75px;
-      left: 27px;
-      width: 29px;
-      height: 15px;
+      top: 65px;
+      left: 23px;
+      width: 28px;
+      height: 14px;
       border-bottom: 5px solid #3a1d0c;
       border-radius: 0 0 50px 50px;
     }
 
     .cheek {
       position: absolute;
-      top: 67px;
-      width: 13px;
+      top: 58px;
+      width: 12px;
       height: 9px;
       background: #eaa06f;
       border-radius: 50%;
     }
 
-    .cheek.left { left: 9px; }
-    .cheek.right { right: 9px; }
+    .cheek.left { left: 8px; }
+    .cheek.right { right: 8px; }
 
-    .arm {
+    .obj {
       position: absolute;
-      top: 79px;
-      width: 36px;
-      height: 10px;
-      background: #7b4219;
-      border-radius: 20px;
-    }
-
-    .arm.left {
-      left: -29px;
-      transform: rotate(-25deg);
-    }
-
-    .arm.right {
-      right: -29px;
-      transform: rotate(25deg);
-    }
-
-    .leg {
-      position: absolute;
-      bottom: -18px;
-      width: 15px;
-      height: 23px;
-      background: #7b4219;
-      border-radius: 12px;
-    }
-
-    .leg.left { left: 23px; }
-    .leg.right { right: 23px; }
-
-    .clickable {
-      position: absolute;
+      z-index: 12;
       cursor: pointer;
-      z-index: 30;
       transition: transform 0.12s, filter 0.12s;
     }
 
-    .clickable:hover {
+    .obj:hover {
       transform: scale(1.04);
       filter: brightness(1.05);
     }
 
-    .clickable:active {
+    .obj:active {
       transform: scale(0.96);
     }
 
-    .obj-label {
+    .label {
       position: absolute;
       left: 50%;
-      bottom: -27px;
+      bottom: -25px;
       transform: translateX(-50%);
       background: rgba(255,255,255,0.95);
       border: 2px solid #8d551e;
       border-radius: 10px;
       padding: 3px 7px;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 900;
       white-space: nowrap;
       pointer-events: none;
     }
 
-    .window {
-      width: 145px;
-      height: 102px;
-      left: 12%;
-      top: 26%;
+    .emojiObj {
+      font-size: 58px;
+      filter: drop-shadow(0 7px 0 rgba(0,0,0,0.16));
+    }
+
+    .person {
+      position: absolute;
+      width: 82px;
+      height: 124px;
+      z-index: 19;
+      cursor: pointer;
+      font-weight: 900;
+      color: #4c290f;
+      text-align: center;
+    }
+
+    .face {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      background: #f0b982;
+      border: 4px solid #6d3b15;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .face::before,
+    .face::after {
+      content: "";
+      position: absolute;
+      top: 23px;
+      width: 7px;
+      height: 7px;
+      background: #22130a;
+      border-radius: 50%;
+    }
+
+    .face::before { left: 15px; }
+    .face::after { right: 15px; }
+
+    .body {
+      width: 70px;
+      height: 62px;
+      border: 4px solid #6d3b15;
+      border-radius: 18px 18px 10px 10px;
+      margin: -4px auto 0;
+    }
+
+    .mommy .body { background: #ff9fc8; }
+    .daddy .body { background: #7fc6ff; }
+
+    .windowObj {
+      width: 135px;
+      height: 95px;
       background: #8fd3ff;
       border: 7px solid #8b4b24;
       border-radius: 14px;
     }
 
-    .window::before {
+    .windowObj::before {
       content: "";
       position: absolute;
       left: 50%;
@@ -440,29 +450,27 @@
       background: #8b4b24;
     }
 
-    .window::after {
+    .windowObj::after {
       content: "";
       position: absolute;
-      top: 50%;
       left: 0;
-      height: 5px;
+      top: 50%;
       width: 100%;
+      height: 5px;
       background: #8b4b24;
     }
 
-    .plant {
+    .plantObj {
       width: 90px;
-      height: 135px;
-      left: 13%;
-      bottom: 132px;
+      height: 120px;
     }
 
-    .plant .pot {
+    .pot {
       position: absolute;
       bottom: 0;
       left: 18px;
       width: 58px;
-      height: 56px;
+      height: 52px;
       background: #c45d2e;
       border: 5px solid #763016;
       border-radius: 9px 9px 19px 19px;
@@ -470,164 +478,147 @@
 
     .leaf {
       position: absolute;
-      width: 50px;
-      height: 28px;
+      width: 48px;
+      height: 27px;
       background: #3dab52;
       border: 3px solid #19762c;
       border-radius: 50%;
     }
 
-    .leaf.one { left: 2px; top: 38px; transform: rotate(-32deg); }
-    .leaf.two { right: 0; top: 31px; transform: rotate(34deg); }
-    .leaf.three { left: 24px; top: 10px; transform: rotate(83deg); }
+    .leaf.a { left: 2px; top: 34px; transform: rotate(-32deg); }
+    .leaf.b { right: 0; top: 28px; transform: rotate(34deg); }
+    .leaf.c { left: 24px; top: 8px; transform: rotate(83deg); }
 
-    .couch {
-      width: 220px;
-      height: 90px;
-      left: 34%;
-      bottom: 132px;
+    .couchObj {
+      width: 210px;
+      height: 84px;
       background: #ff7777;
       border: 6px solid #a43636;
       border-radius: 28px 28px 16px 16px;
     }
 
-    .couch::before {
+    .couchObj::before {
       content: "";
       position: absolute;
-      left: 24px;
-      right: 24px;
-      top: -38px;
-      height: 72px;
+      left: 22px;
+      right: 22px;
+      top: -35px;
+      height: 67px;
       background: #ff9292;
       border: 6px solid #a43636;
       border-radius: 25px;
       z-index: -1;
     }
 
-    .rug {
-      width: 240px;
-      height: 78px;
-      left: 58%;
-      bottom: 62px;
+    .rugObj {
+      width: 225px;
+      height: 72px;
       background: #7fc6ff;
       border: 6px solid #2776a8;
       border-radius: 50%;
-      z-index: 24;
     }
 
-    .door {
-      width: 122px;
-      height: 215px;
-      right: 68px;
-      bottom: 132px;
+    .doorObj {
+      width: 115px;
+      height: 202px;
       background: #8b4b24;
       border: 7px solid #562c12;
       border-radius: 13px 13px 0 0;
       box-shadow: 0 8px 0 rgba(0,0,0,0.18);
     }
 
-    .door::before {
+    .doorObj::before {
       content: "";
       position: absolute;
-      width: 19px;
-      height: 19px;
-      right: 18px;
-      top: 104px;
+      width: 18px;
+      height: 18px;
+      right: 17px;
+      top: 98px;
       background: #ffd34d;
       border: 3px solid #5a3217;
       border-radius: 50%;
     }
 
-    .fridge {
-      width: 110px;
-      height: 215px;
-      left: 12%;
-      bottom: 118px;
+    .fridgeObj {
+      width: 105px;
+      height: 205px;
       background: #e7f7ff;
       border: 7px solid #5a8aa3;
       border-radius: 19px;
     }
 
-    .fridge::before {
+    .fridgeObj::before {
       content: "";
       position: absolute;
       left: 0;
       right: 0;
-      top: 80px;
+      top: 78px;
       height: 5px;
       background: #5a8aa3;
     }
 
-    .fridge::after {
+    .fridgeObj::after {
       content: "";
       position: absolute;
-      right: 14px;
-      top: 110px;
+      right: 13px;
+      top: 106px;
       width: 11px;
-      height: 45px;
+      height: 43px;
       background: #5a8aa3;
       border-radius: 10px;
     }
 
-    .table {
-      width: 250px;
+    .tableObj {
+      width: 245px;
       height: 40px;
-      left: 38%;
-      bottom: 178px;
       background: #9c5f2c;
       border: 6px solid #5f3518;
       border-radius: 12px;
-      z-index: 32;
     }
 
-    .table::before,
-    .table::after {
+    .tableObj::before,
+    .tableObj::after {
       content: "";
       position: absolute;
-      bottom: -84px;
+      bottom: -80px;
       width: 20px;
-      height: 82px;
+      height: 78px;
       background: #5f3518;
       border-radius: 8px;
     }
 
-    .table::before { left: 30px; }
-    .table::after { right: 30px; }
+    .tableObj::before { left: 30px; }
+    .tableObj::after { right: 30px; }
 
-    .cookiejar {
-      width: 74px;
-      height: 92px;
-      left: calc(38% + 88px);
-      bottom: 222px;
+    .cookieObj {
+      width: 72px;
+      height: 88px;
       background: #ffd1e6;
       border: 6px solid #ad5b82;
       border-radius: 25px;
-      z-index: 34;
     }
 
-    .cookiejar::before {
+    .cookieObj::before {
       content: "";
       position: absolute;
-      left: 12px;
-      top: -27px;
+      left: 11px;
+      top: -26px;
       width: 40px;
-      height: 28px;
+      height: 27px;
       background: #ffbad8;
       border: 6px solid #ad5b82;
       border-radius: 18px 18px 8px 8px;
     }
 
-    .cabinet {
-      width: 170px;
-      height: 110px;
-      right: 100px;
-      bottom: 118px;
+    .cabinetObj {
+      width: 165px;
+      height: 105px;
       background: #d28a45;
       border: 6px solid #774014;
       border-radius: 15px;
     }
 
-    .cabinet::before {
+    .cabinetObj::before {
       content: "";
       position: absolute;
       left: 50%;
@@ -637,11 +628,11 @@
       background: #774014;
     }
 
-    .cabinet::after {
+    .cabinetObj::after {
       content: "";
       position: absolute;
-      left: 76px;
-      top: 44px;
+      left: 73px;
+      top: 42px;
       width: 18px;
       height: 18px;
       background: #ffd34d;
@@ -649,30 +640,26 @@
       border-radius: 50%;
     }
 
-    .mirror {
-      width: 130px;
-      height: 105px;
-      left: 19%;
-      top: 20%;
+    .mirrorObj {
+      width: 126px;
+      height: 100px;
       background: #b9f3ff;
       border: 7px solid #8b4b24;
       border-radius: 50%;
     }
 
-    .sink {
-      width: 175px;
-      height: 96px;
-      left: 18%;
-      bottom: 130px;
+    .sinkObj {
+      width: 170px;
+      height: 92px;
       background: #dff8ff;
       border: 7px solid #568aa1;
       border-radius: 18px 18px 30px 30px;
     }
 
-    .sink::before {
+    .sinkObj::before {
       content: "";
       position: absolute;
-      left: 56px;
+      left: 54px;
       top: -31px;
       width: 50px;
       height: 29px;
@@ -681,51 +668,31 @@
       border-radius: 24px 24px 0 0;
     }
 
-    .sink::after {
-      content: "";
-      position: absolute;
-      left: 75px;
-      top: 29px;
-      width: 23px;
-      height: 23px;
-      background: #89c9dd;
-      border: 4px solid #568aa1;
-      border-radius: 50%;
-    }
-
-    .towel {
-      width: 92px;
-      height: 116px;
-      right: 160px;
-      bottom: 137px;
+    .towelObj {
+      width: 90px;
+      height: 112px;
       background: #ff9fc8;
       border: 6px solid #9d4265;
       border-radius: 15px;
     }
 
-    .bathmat {
+    .bathmatObj {
       width: 220px;
-      height: 72px;
-      left: 47%;
-      bottom: 48px;
+      height: 70px;
       background: #b699ff;
       border: 6px solid #5e45a3;
       border-radius: 50%;
-      z-index: 24;
     }
 
-    .bed {
-      width: 270px;
-      height: 105px;
-      left: 20%;
-      bottom: 118px;
+    .bedObj {
+      width: 265px;
+      height: 102px;
       background: #7ea5ff;
       border: 6px solid #314d9a;
       border-radius: 18px;
-      z-index: 32;
     }
 
-    .bed::before {
+    .bedObj::before {
       content: "";
       position: absolute;
       left: 0;
@@ -736,255 +703,85 @@
       border-radius: 0 0 18px 18px;
     }
 
-    .pillow {
-      width: 92px;
-      height: 50px;
-      left: calc(20% + 22px);
-      bottom: 183px;
-      background: #fff;
+    .pillowObj {
+      width: 90px;
+      height: 48px;
+      background: white;
       border: 6px solid #aaa;
       border-radius: 21px;
-      z-index: 34;
     }
 
-    .toybox {
-      width: 155px;
-      height: 98px;
-      right: 170px;
-      bottom: 118px;
+    .toyboxObj {
+      width: 150px;
+      height: 94px;
       background: #9de27f;
       border: 6px solid #39782d;
       border-radius: 16px;
     }
 
-    .toybox::before {
-      content: "";
-      position: absolute;
-      left: 12px;
-      right: 12px;
-      top: -23px;
-      height: 30px;
-      background: #c2f4a9;
-      border: 6px solid #39782d;
-      border-radius: 14px;
+    .lampObj {
+      width: 92px;
+      height: 145px;
     }
 
-    .lamp {
-      width: 100px;
-      height: 155px;
-      right: 65px;
-      bottom: 116px;
-    }
-
-    .lamp::before {
+    .lampObj::before {
       content: "";
       position: absolute;
-      left: 40px;
+      left: 38px;
       bottom: 0;
-      width: 17px;
-      height: 88px;
+      width: 16px;
+      height: 82px;
       background: #5d3b2a;
       border-radius: 9px;
     }
 
-    .lamp::after {
+    .lampObj::after {
       content: "";
       position: absolute;
-      left: 12px;
+      left: 10px;
       top: 0;
-      width: 75px;
-      height: 58px;
+      width: 72px;
+      height: 56px;
       background: #ffe45c;
       border: 6px solid #9b7610;
       border-radius: 31px 31px 12px 12px;
     }
 
-    .flowers {
+    .toolboxObj {
       width: 150px;
-      height: 110px;
-      left: 15%;
-      bottom: 130px;
-      font-size: 54px;
-    }
-
-    .flowers::before {
-      content: "🌸🌼🌷";
-      position: absolute;
-    }
-
-    .bush {
-      width: 155px;
-      height: 110px;
-      left: 36%;
-      bottom: 130px;
-      background: #2fa84f;
-      border: 6px solid #126b2a;
-      border-radius: 50%;
-    }
-
-    .bush::before,
-    .bush::after {
-      content: "";
-      position: absolute;
-      background: #39bc5f;
-      border: 5px solid #126b2a;
-      border-radius: 50%;
-    }
-
-    .bush::before {
-      width: 95px;
       height: 85px;
-      left: -35px;
-      bottom: 5px;
-    }
-
-    .bush::after {
-      width: 95px;
-      height: 85px;
-      right: -35px;
-      bottom: 5px;
-    }
-
-    .wateringcan {
-      width: 130px;
-      height: 90px;
-      left: 58%;
-      bottom: 130px;
-      background: #89c9dd;
-      border: 6px solid #336d83;
-      border-radius: 20px;
-    }
-
-    .wateringcan::before {
-      content: "";
-      position: absolute;
-      left: -50px;
-      top: 20px;
-      width: 58px;
-      height: 22px;
-      background: #89c9dd;
-      border: 6px solid #336d83;
-      border-radius: 25px 0 0 25px;
-    }
-
-    .birdhouse {
-      width: 95px;
-      height: 135px;
-      right: 120px;
-      bottom: 155px;
-      background: #d28a45;
-      border: 6px solid #774014;
-    }
-
-    .birdhouse::before {
-      content: "";
-      position: absolute;
-      left: -16px;
-      top: -46px;
-      width: 120px;
-      height: 70px;
-      background: #c45d2e;
-      border: 6px solid #763016;
-      transform: rotate(45deg);
-      z-index: -1;
-    }
-
-    .birdhouse::after {
-      content: "";
-      position: absolute;
-      left: 34px;
-      top: 45px;
-      width: 26px;
-      height: 26px;
-      background: #3b2414;
-      border-radius: 50%;
-    }
-
-    .toolbox {
-      width: 155px;
-      height: 88px;
-      left: 15%;
-      bottom: 120px;
       background: #e34b4b;
       border: 6px solid #7a1f1f;
       border-radius: 16px;
     }
 
-    .toolbox::before {
-      content: "";
-      position: absolute;
-      left: 48px;
-      top: -28px;
-      width: 55px;
-      height: 30px;
-      border: 7px solid #7a1f1f;
-      border-bottom: none;
-      border-radius: 20px 20px 0 0;
-    }
-
-    .shelves {
-      width: 180px;
-      height: 168px;
-      left: 38%;
-      bottom: 112px;
+    .shelvesObj {
+      width: 175px;
+      height: 160px;
       background: #9c5f2c;
       border: 6px solid #5f3518;
     }
 
-    .shelves::before,
-    .shelves::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      height: 6px;
-      background: #5f3518;
-    }
-
-    .shelves::before { top: 55px; }
-    .shelves::after { top: 112px; }
-
-    .tire {
-      width: 112px;
-      height: 112px;
-      left: 62%;
-      bottom: 115px;
+    .tireObj {
+      width: 108px;
+      height: 108px;
       background: #333;
       border: 18px solid #111;
       border-radius: 50%;
       box-shadow: inset 0 0 0 14px #777;
     }
 
-    .workbench {
-      width: 215px;
+    .benchObj {
+      width: 205px;
       height: 48px;
-      right: 78px;
-      bottom: 182px;
       background: #9c5f2c;
       border: 6px solid #5f3518;
       border-radius: 12px;
     }
 
-    .workbench::before,
-    .workbench::after {
-      content: "";
-      position: absolute;
-      bottom: -95px;
-      width: 22px;
-      height: 90px;
-      background: #5f3518;
-      border-radius: 8px;
-    }
-
-    .workbench::before { left: 30px; }
-    .workbench::after { right: 30px; }
-
-    .gate {
+    .gateObj {
       width: 250px;
       height: 150px;
-      left: 50%;
-      bottom: 120px;
-      transform: translateX(-50%);
       background: repeating-linear-gradient(
         90deg,
         #9b5a28 0px,
@@ -996,7 +793,7 @@
       border-radius: 15px;
     }
 
-    .gate::before {
+    .gateObj::before {
       content: "YARD GATE";
       position: absolute;
       left: 50%;
@@ -1010,76 +807,21 @@
       white-space: nowrap;
     }
 
-    .person {
+    .busObj {
       position: absolute;
-      width: 90px;
-      height: 135px;
-      z-index: 55;
-      cursor: pointer;
-      transition: transform 0.12s;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
-      font-weight: 900;
-      text-align: center;
-      color: #4c290f;
-    }
-
-    .person:hover {
-      transform: scale(1.05);
-    }
-
-    .person-face {
-      width: 58px;
-      height: 58px;
-      border-radius: 50%;
-      background: #f0b982;
-      border: 4px solid #6d3b15;
-      position: relative;
-    }
-
-    .person-face::before,
-    .person-face::after {
-      content: "";
-      position: absolute;
-      top: 24px;
-      width: 7px;
-      height: 7px;
-      background: #22130a;
-      border-radius: 50%;
-    }
-
-    .person-face::before { left: 16px; }
-    .person-face::after { right: 16px; }
-
-    .person-body {
-      width: 72px;
-      height: 65px;
-      border: 4px solid #6d3b15;
-      border-radius: 18px 18px 10px 10px;
-      margin-top: -5px;
-    }
-
-    .mommy .person-body { background: #ff9fc8; }
-    .daddy .person-body { background: #7fc6ff; }
-
-    .bus {
-      position: absolute;
-      left: 50%;
-      bottom: 105px;
-      transform: translateX(-50%);
+      left: 220px;
+      bottom: 100px;
       width: 430px;
       height: 170px;
       background: #ffd34d;
       border: 7px solid #8d551e;
       border-radius: 28px;
-      z-index: 35;
+      z-index: 13;
       cursor: pointer;
       box-shadow: 0 8px 0 rgba(0,0,0,0.22);
     }
 
-    .bus::before {
+    .busObj::before {
       content: "SCHOOL BUS";
       position: absolute;
       left: 130px;
@@ -1089,7 +831,7 @@
       color: #5a3217;
     }
 
-    .bus::after {
+    .busObj::after {
       content: "";
       position: absolute;
       left: 55px;
@@ -1102,7 +844,7 @@
       box-shadow: 245px 0 0 #333, 245px 0 0 8px #111;
     }
 
-    .bus-window {
+    .busWin {
       position: absolute;
       top: 58px;
       width: 58px;
@@ -1112,43 +854,25 @@
       border-radius: 10px;
     }
 
-    .w1 { left: 45px; }
-    .w2 { left: 115px; }
-    .w3 { left: 185px; }
-    .w4 { left: 255px; }
+    .bw1 { left: 45px; }
+    .bw2 { left: 115px; }
+    .bw3 { left: 185px; }
+    .bw4 { left: 255px; }
 
-    .small-object {
+    .schoolDoor {
       position: absolute;
-      z-index: 35;
-      cursor: pointer;
-      font-size: 62px;
-      transition: transform 0.12s;
-      text-align: center;
-      filter: drop-shadow(0 7px 0 rgba(0,0,0,0.16));
-    }
-
-    .small-object:hover {
-      transform: scale(1.08);
-    }
-
-    .small-object .obj-label {
-      bottom: -12px;
-    }
-
-    .school-door {
-      position: absolute;
-      right: 80px;
-      bottom: 120px;
+      right: 78px;
+      bottom: 110px;
       width: 150px;
       height: 220px;
       background: #ad6a30;
       border: 7px solid #5d3114;
       border-radius: 13px 13px 0 0;
-      z-index: 35;
+      z-index: 13;
       cursor: pointer;
     }
 
-    .school-door::before {
+    .schoolDoor::before {
       content: "EXIT";
       position: absolute;
       left: 39px;
@@ -1160,31 +884,27 @@
       font-weight: 900;
     }
 
-    .map-card {
+    .mapCard {
       position: absolute;
-      width: 185px;
-      height: 126px;
+      width: 175px;
+      height: 112px;
       border: 5px solid #8d551e;
-      border-radius: 24px;
+      border-radius: 22px;
       background: white;
       box-shadow: 0 7px 0 rgba(0,0,0,0.18);
       cursor: pointer;
-      z-index: 35;
+      z-index: 13;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       font-weight: 900;
+      font-size: 15px;
       text-align: center;
-      transition: transform 0.12s;
     }
 
-    .map-card:hover {
-      transform: scale(1.05);
-    }
-
-    .map-card .emoji {
-      font-size: 42px;
+    .mapEmoji {
+      font-size: 38px;
     }
 
     .confetti {
@@ -1192,16 +912,16 @@
       width: 14px;
       height: 14px;
       border-radius: 4px;
-      z-index: 150;
-      animation: fall 3s linear infinite;
+      z-index: 60;
+      animation: fall 2.7s linear infinite;
     }
 
     @keyframes fall {
       0% { transform: translateY(-40px) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(800px) rotate(360deg); opacity: 0; }
+      100% { transform: translateY(700px) rotate(360deg); opacity: 0; }
     }
 
-    .start-screen {
+    .startScreen {
       position: fixed;
       inset: 0;
       background: linear-gradient(180deg, #85dbff, #fff0b8);
@@ -1212,7 +932,7 @@
       padding: 22px;
     }
 
-    .start-card {
+    .startCard {
       width: min(620px, 92vw);
       background: #fff8df;
       border: 7px solid #8d551e;
@@ -1222,332 +942,59 @@
       padding: 28px 24px;
     }
 
-    .start-card h1 {
+    .startCard h1 {
       font-size: 42px;
-      margin: 0 0 8px;
+      margin: 0;
       color: #7a3f17;
       text-shadow: 2px 2px #ffd36f;
     }
 
-    .start-peanut {
-      font-size: 74px;
-      margin: 6px 0;
-    }
-
-    .start-card p {
+    .startCard p {
       font-size: 19px;
       font-weight: 800;
       line-height: 1.3;
-      margin: 10px 0 18px;
+      margin: 14px 0 20px;
       color: #6d3b15;
     }
 
-    .start-button {
-      font-size: 22px;
-      padding: 14px 24px;
+    .startButton {
+      border: 3px solid #8d551e;
       border-radius: 22px;
       background: #ffbf47;
-    }
-
-    @media (max-width: 800px) {
-      .top {
-        height: 142px;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
-      }
-
-      .title {
-        font-size: 22px;
-      }
-
-      .subtitle {
-        font-size: 11px;
-      }
-
-      .top-buttons {
-        justify-content: flex-start;
-      }
-
-      .top-btn {
-        font-size: 10px;
-        padding: 6px 7px;
-      }
-
-      .side {
-        width: 94px;
-        padding: 7px 5px;
-      }
-
-      .room-btn {
-        font-size: 10px;
-        padding: 8px 3px;
-      }
-
-      .room-name {
-        font-size: 14px;
-      }
-
-      .inventory {
-        top: 50px;
-        right: 7px;
-        max-width: 58%;
-      }
-
-      .slot {
-        font-size: 9px;
-        min-width: 46px;
-        padding: 4px 5px;
-      }
-
-      .picture-clue {
-        width: 150px;
-        min-height: 90px;
-        top: 76px;
-      }
-
-      .picture-clue .big-icon {
-        font-size: 36px;
-      }
-
-      .picture-clue .clue-text {
-        font-size: 11px;
-      }
-
-      .message {
-        font-size: 12px;
-        min-height: 60px;
-        bottom: 8px;
-      }
-
-      .peanut {
-        width: 64px;
-        height: 100px;
-        bottom: 70px;
-      }
-
-      .eye { top: 34px; }
-      .smile { top: 56px; left: 19px; }
-
-      .window {
-        width: 102px;
-        height: 76px;
-        left: 10%;
-      }
-
-      .plant {
-        transform: scale(0.72);
-        transform-origin: bottom left;
-      }
-
-      .couch {
-        width: 140px;
-        height: 66px;
-        left: 32%;
-      }
-
-      .rug {
-        width: 150px;
-        height: 50px;
-      }
-
-      .door {
-        width: 86px;
-        height: 160px;
-        right: 20px;
-      }
-
-      .fridge {
-        width: 78px;
-        height: 158px;
-      }
-
-      .table {
-        width: 138px;
-        left: 34%;
-        bottom: 168px;
-      }
-
-      .cookiejar {
-        left: calc(34% + 48px);
-        width: 54px;
-        height: 68px;
-        bottom: 209px;
-      }
-
-      .cabinet {
-        width: 105px;
-        height: 80px;
-        right: 24px;
-      }
-
-      .mirror {
-        width: 95px;
-        height: 75px;
-      }
-
-      .sink {
-        width: 120px;
-        height: 75px;
-      }
-
-      .towel {
-        width: 65px;
-        height: 88px;
-        right: 76px;
-      }
-
-      .bathmat {
-        width: 140px;
-        height: 45px;
-      }
-
-      .bed {
-        width: 165px;
-        height: 78px;
-      }
-
-      .pillow {
-        width: 62px;
-        height: 34px;
-        left: calc(20% + 16px);
-        bottom: 170px;
-      }
-
-      .toybox {
-        width: 98px;
-        height: 72px;
-        right: 94px;
-      }
-
-      .lamp {
-        transform: scale(0.7);
-        transform-origin: bottom right;
-      }
-
-      .flowers {
-        transform: scale(0.72);
-        transform-origin: bottom left;
-      }
-
-      .bush {
-        transform: scale(0.74);
-        transform-origin: bottom center;
-      }
-
-      .wateringcan {
-        transform: scale(0.74);
-        transform-origin: bottom center;
-      }
-
-      .birdhouse {
-        transform: scale(0.72);
-        transform-origin: bottom right;
-      }
-
-      .toolbox,
-      .shelves,
-      .tire,
-      .workbench {
-        transform: scale(0.75);
-        transform-origin: bottom center;
-      }
-
-      .bus {
-        width: 295px;
-        height: 132px;
-      }
-
-      .bus::before {
-        left: 86px;
-        top: 13px;
-        font-size: 18px;
-      }
-
-      .bus-window {
-        width: 40px;
-        height: 32px;
-      }
-
-      .w1 { left: 32px; }
-      .w2 { left: 80px; }
-      .w3 { left: 128px; }
-      .w4 { left: 176px; }
-
-      .small-object {
-        font-size: 40px;
-      }
-
-      .school-door {
-        width: 98px;
-        height: 150px;
-        right: 22px;
-      }
-
-      .map-card {
-        width: 118px;
-        height: 82px;
-        font-size: 10px;
-      }
-
-      .map-card .emoji {
-        font-size: 28px;
-      }
-
-      .start-card h1 {
-        font-size: 30px;
-      }
-
-      .start-peanut {
-        font-size: 56px;
-      }
-
-      .start-card p {
-        font-size: 16px;
-      }
-
-      .start-button {
-        font-size: 18px;
-      }
+      color: #3b2414;
+      padding: 14px 24px;
+      font-size: 22px;
+      font-weight: 900;
+      box-shadow: 0 5px 0 #8d551e;
+      cursor: pointer;
     }
   </style>
 </head>
 
 <body>
-  <div class="start-screen" id="startScreen">
-    <div class="start-card">
-      <h1>🥜 Peanut House</h1>
-      <div class="start-peanut">🥜🏠</div>
-      <p>Help Peanut find picture clues, find Mommy and Daddy, ride the school bus, and unlock the adventure map!</p>
-      <button class="start-button" onclick="beginGame()">Tap to Start</button>
-    </div>
-  </div>
+  <div id="fitArea">
+    <div id="gameShell">
+      <div class="top">
+        <div>
+          <div class="title">🥜 Peanut House Adventure</div>
+          <div class="subtitle">Picture clues, real objects, and your voice files from the MP3s folder.</div>
+        </div>
 
-  <div class="game">
-    <div class="top">
-      <div>
-        <div class="title">🥜 Peanut House Adventure</div>
-        <div class="subtitle">
-          Picture clues, real objects, and your voice files from the MP3s folder.
+        <div class="topButtons">
+          <button class="btn" onclick="readMessage()">🔊 Read</button>
+          <button class="btn on" id="autoReadBtn" onclick="toggleAutoRead()">🔊 Auto On</button>
+          <button class="btn" onclick="giveHint()">💡 Hint</button>
+          <button class="btn" onclick="newGame()">🔄 Start Over</button>
         </div>
       </div>
 
-      <div class="top-buttons">
-        <button class="top-btn" onclick="readMessage()">🔊 Read</button>
-        <button class="top-btn on" id="autoReadBtn" onclick="toggleAutoRead()">🔊 Auto On</button>
-        <button class="top-btn" onclick="giveHint()">💡 Hint</button>
-        <button class="top-btn" onclick="newGame()">🔄 Start Over</button>
-      </div>
-    </div>
-
-    <div class="main">
-      <div class="side" id="side"></div>
+      <div class="rooms" id="rooms"></div>
 
       <div class="scene" id="scene">
         <div class="background" id="background"></div>
-        <div class="room-name" id="roomName">Living Room</div>
+        <div class="roomName" id="roomName">Living Room</div>
         <div class="inventory" id="inventory"></div>
-        <div id="pictureClue"></div>
+        <div id="clueBox"></div>
 
         <div class="peanut" id="peanut">
           <div class="eye left"></div>
@@ -1555,28 +1002,32 @@
           <div class="cheek left"></div>
           <div class="cheek right"></div>
           <div class="smile"></div>
-          <div class="arm left"></div>
-          <div class="arm right"></div>
-          <div class="leg left"></div>
-          <div class="leg right"></div>
         </div>
 
-        <div class="message" id="message">
-          Help Peanut escape! Tap the objects to find the first clue.
-        </div>
+        <div class="message" id="message">Help Peanut escape! Tap objects in the living room to find a picture clue.</div>
       </div>
     </div>
   </div>
 
+  <div class="startScreen" id="startScreen">
+    <div class="startCard">
+      <h1>🥜 Peanut House</h1>
+      <p>Help Peanut find picture clues, find Mommy and Daddy, ride the school bus, and unlock the adventure map!</p>
+      <button class="startButton" onclick="beginGame()">Tap to Start</button>
+    </div>
+  </div>
+
   <script>
+    const fitArea = document.getElementById("fitArea");
+    const gameShell = document.getElementById("gameShell");
     const scene = document.getElementById("scene");
     const background = document.getElementById("background");
+    const rooms = document.getElementById("rooms");
     const roomName = document.getElementById("roomName");
-    const side = document.getElementById("side");
-    const message = document.getElementById("message");
     const inventory = document.getElementById("inventory");
+    const clueBox = document.getElementById("clueBox");
+    const message = document.getElementById("message");
     const peanut = document.getElementById("peanut");
-    const pictureClue = document.getElementById("pictureClue");
     const autoReadBtn = document.getElementById("autoReadBtn");
     const startScreen = document.getElementById("startScreen");
 
@@ -1596,41 +1047,35 @@
       bedroom_search_here: AUDIO_FOLDER + "bedroom_search_here.mp3",
       wrong_room_house: AUDIO_FOLDER + "wrong_room_house.mp3",
       try_another_object: AUDIO_FOLDER + "try_another_object.mp3",
-
       go_kitchen: AUDIO_FOLDER + "go_kitchen.mp3",
       go_bathroom: AUDIO_FOLDER + "go_bathroom.mp3",
       go_bedroom: AUDIO_FOLDER + "go_bedroom.mp3",
       go_door: AUDIO_FOLDER + "go_door.mp3",
       door_locked: AUDIO_FOLDER + "door_locked.mp3",
       door_unlocked: AUDIO_FOLDER + "door_unlocked.mp3",
-
       find_mommy: AUDIO_FOLDER + "find_mommy.mp3",
       mommy_not_there: AUDIO_FOLDER + "mommy_not_there.mp3",
       mommy_found: AUDIO_FOLDER + "mommy_found.mp3",
       mommy_already_found: AUDIO_FOLDER + "mommy_already_found.mp3",
       mommy_talk: AUDIO_FOLDER + "mommy_talk.mp3",
-
       find_daddy: AUDIO_FOLDER + "find_daddy.mp3",
       need_mommy_first: AUDIO_FOLDER + "need_mommy_first.mp3",
       daddy_not_there: AUDIO_FOLDER + "daddy_not_there.mp3",
       daddy_found: AUDIO_FOLDER + "daddy_found.mp3",
       daddy_already_found: AUDIO_FOLDER + "daddy_already_found.mp3",
       daddy_talk: AUDIO_FOLDER + "daddy_talk.mp3",
-
       go_gate: AUDIO_FOLDER + "go_gate.mp3",
       need_mommy_gate: AUDIO_FOLDER + "need_mommy_gate.mp3",
       need_daddy_gate: AUDIO_FOLDER + "need_daddy_gate.mp3",
       gate_opens: AUDIO_FOLDER + "gate_opens.mp3",
       mailbox: AUDIO_FOLDER + "mailbox.mp3",
       dog_house: AUDIO_FOLDER + "dog_house.mp3",
-
       find_backpack: AUDIO_FOLDER + "find_backpack.mp3",
       backpack_not_there: AUDIO_FOLDER + "backpack_not_there.mp3",
       backpack_found: AUDIO_FOLDER + "backpack_found.mp3",
       tap_bus: AUDIO_FOLDER + "tap_bus.mp3",
       need_backpack: AUDIO_FOLDER + "need_backpack.mp3",
       go_school: AUDIO_FOLDER + "go_school.mp3",
-
       find_letters: AUDIO_FOLDER + "find_letters.mp3",
       letters_found: AUDIO_FOLDER + "letters_found.mp3",
       look_for_letters: AUDIO_FOLDER + "look_for_letters.mp3",
@@ -1640,14 +1085,12 @@
       find_hall_pass: AUDIO_FOLDER + "find_hall_pass.mp3",
       hall_pass_found: AUDIO_FOLDER + "hall_pass_found.mp3",
       look_for_hall_pass: AUDIO_FOLDER + "look_for_hall_pass.mp3",
-
       go_school_exit: AUDIO_FOLDER + "go_school_exit.mp3",
       need_letters: AUDIO_FOLDER + "need_letters.mp3",
       need_numbers: AUDIO_FOLDER + "need_numbers.mp3",
       need_hall_pass: AUDIO_FOLDER + "need_hall_pass.mp3",
       school_bell: AUDIO_FOLDER + "school_bell.mp3",
       adventure_map: AUDIO_FOLDER + "adventure_map.mp3",
-
       choose_adventure: AUDIO_FOLDER + "choose_adventure.mp3",
       pick_adventure: AUDIO_FOLDER + "pick_adventure.mp3",
       park_unlocked: AUDIO_FOLDER + "park_unlocked.mp3",
@@ -1688,78 +1131,6 @@
       map: "Adventure Map"
     };
 
-    const houseObjects = {
-      living: [
-        { id: "window", label: "Window", className: "window" },
-        { id: "plant", label: "Plant", className: "plant" },
-        { id: "couch", label: "Couch", className: "couch" },
-        { id: "rug", label: "Rug", className: "rug" }
-      ],
-      kitchen: [
-        { id: "fridge", label: "Fridge", className: "fridge" },
-        { id: "table", label: "Table", className: "table" },
-        { id: "cookiejar", label: "Cookie Jar", className: "cookiejar" },
-        { id: "cabinet", label: "Cabinet", className: "cabinet" }
-      ],
-      bathroom: [
-        { id: "mirror", label: "Mirror", className: "mirror" },
-        { id: "sink", label: "Sink", className: "sink" },
-        { id: "towel", label: "Towel", className: "towel" },
-        { id: "bathmat", label: "Bath Mat", className: "bathmat" }
-      ],
-      bedroom: [
-        { id: "bed", label: "Bed", className: "bed" },
-        { id: "pillow", label: "Pillow", className: "pillow" },
-        { id: "toybox", label: "Toy Box", className: "toybox" },
-        { id: "lamp", label: "Lamp", className: "lamp" }
-      ]
-    };
-
-    const yardObjects = {
-      garden: [
-        { id: "flowers", label: "Flowers", className: "flowers" },
-        { id: "bush", label: "Bush", className: "bush" },
-        { id: "wateringcan", label: "Water Can", className: "wateringcan" },
-        { id: "birdhouse", label: "Birdhouse", className: "birdhouse" }
-      ],
-      garage: [
-        { id: "toolbox", label: "Toolbox", className: "toolbox" },
-        { id: "shelves", label: "Shelves", className: "shelves" },
-        { id: "tire", label: "Tire", className: "tire" },
-        { id: "workbench", label: "Workbench", className: "workbench" }
-      ]
-    };
-
-    const busObjects = [
-      { id: "seat", label: "Seat", emoji: "💺", x: 22, y: 52 },
-      { id: "window", label: "Window", emoji: "🪟", x: 45, y: 36 },
-      { id: "floor", label: "Floor", emoji: "🎒", x: 67, y: 60 }
-    ];
-
-    const schoolObjects = {
-      classroom: [
-        { id: "board", label: "Board", emoji: "🧑‍🏫", x: 17, y: 31 },
-        { id: "desk", label: "Desk", emoji: "✏️", x: 39, y: 56 },
-        { id: "backpack", label: "Backpack", emoji: "🎒", x: 62, y: 55 },
-        { id: "globe", label: "Globe", emoji: "🌎", x: 78, y: 36 }
-      ],
-      library: [
-        { id: "books", label: "Books", emoji: "📚", x: 19, y: 43 },
-        { id: "rug", label: "Reading Rug", emoji: "🟩", x: 44, y: 64 },
-        { id: "computer", label: "Computer", emoji: "💻", x: 67, y: 43 },
-        { id: "clock", label: "Clock", emoji: "⏰", x: 82, y: 21 }
-      ]
-    };
-
-    const adventures = [
-      { id: "park", name: "Park", emoji: "🌳", item: "🏅 Park Badge", audio: "park_unlocked" },
-      { id: "zoo", name: "Zoo", emoji: "🦁", item: "🎟️ Zoo Ticket", audio: "zoo_unlocked" },
-      { id: "museum", name: "Museum", emoji: "🏛️", item: "🗺️ Museum Map", audio: "museum_unlocked" },
-      { id: "supermarket", name: "Supermarket", emoji: "🛒", item: "📝 Snack List", audio: "supermarket_unlocked" },
-      { id: "racetrack", name: "Race Track", emoji: "🏁", item: "🏁 Race Flag", audio: "racetrack_unlocked" },
-      { id: "space", name: "Space Library", emoji: "🚀", item: "📘 Star Book", audio: "space_unlocked" }
-    ];
-
     const game = {
       stage: "house",
       houseStep: 0,
@@ -1774,45 +1145,103 @@
       inventory: []
     };
 
-    const houseStory = [
-      {
-        room: "living",
-        item: "📝 First Clue",
-        message: "Peanut found a picture clue! It shows the kitchen.",
-        nextRoom: "kitchen",
-        audio: "go_kitchen"
-      },
-      {
-        room: "kitchen",
-        item: "🍪 Cookie Clue",
-        message: "Peanut found a cookie clue! It shows the bathroom.",
-        nextRoom: "bathroom",
-        audio: "go_bathroom"
-      },
-      {
-        room: "bathroom",
-        item: "🧲 Magnet",
-        message: "Peanut found a magnet! It shows the bedroom.",
-        nextRoom: "bedroom",
-        audio: "go_bedroom"
-      },
-      {
-        room: "bedroom",
-        item: "🔑 Key",
-        message: "Peanut found the key! Go tap the front door.",
-        nextRoom: "living",
-        audio: "go_door"
-      }
+    const houseObjects = {
+      living: [
+        { id: "window", label: "Window", type: "windowObj", x: 90, y: 130 },
+        { id: "plant", label: "Plant", type: "plantObj", x: 112, y: 300 },
+        { id: "couch", label: "Couch", type: "couchObj", x: 310, y: 320 },
+        { id: "rug", label: "Rug", type: "rugObj", x: 525, y: 385 }
+      ],
+      kitchen: [
+        { id: "fridge", label: "Fridge", type: "fridgeObj", x: 95, y: 235 },
+        { id: "table", label: "Table", type: "tableObj", x: 330, y: 322 },
+        { id: "cookiejar", label: "Cookie Jar", type: "cookieObj", x: 418, y: 238 },
+        { id: "cabinet", label: "Cabinet", type: "cabinetObj", x: 625, y: 330 }
+      ],
+      bathroom: [
+        { id: "mirror", label: "Mirror", type: "mirrorObj", x: 160, y: 118 },
+        { id: "sink", label: "Sink", type: "sinkObj", x: 150, y: 325 },
+        { id: "towel", label: "Towel", type: "towelObj", x: 625, y: 310 },
+        { id: "bathmat", label: "Bath Mat", type: "bathmatObj", x: 410, y: 425 }
+      ],
+      bedroom: [
+        { id: "bed", label: "Bed", type: "bedObj", x: 180, y: 330 },
+        { id: "pillow", label: "Pillow", type: "pillowObj", x: 205, y: 282 },
+        { id: "toybox", label: "Toy Box", type: "toyboxObj", x: 585, y: 340 },
+        { id: "lamp", label: "Lamp", type: "lampObj", x: 735, y: 275 }
+      ]
+    };
+
+    const yardObjects = {
+      garden: [
+        { id: "flowers", label: "Flowers", emoji: "🌸🌼🌷", x: 120, y: 310 },
+        { id: "bush", label: "Bush", emoji: "🌳", x: 330, y: 310 },
+        { id: "wateringcan", label: "Water Can", emoji: "🚿", x: 510, y: 310 },
+        { id: "birdhouse", label: "Birdhouse", emoji: "🏠", x: 690, y: 275 }
+      ],
+      garage: [
+        { id: "toolbox", label: "Toolbox", type: "toolboxObj", x: 120, y: 350 },
+        { id: "shelves", label: "Shelves", type: "shelvesObj", x: 330, y: 260 },
+        { id: "tire", label: "Tire", type: "tireObj", x: 535, y: 338 },
+        { id: "workbench", label: "Workbench", type: "benchObj", x: 650, y: 315 }
+      ]
+    };
+
+    const busObjects = [
+      { id: "seat", label: "Seat", emoji: "💺", x: 190, y: 300 },
+      { id: "window", label: "Window", emoji: "🪟", x: 390, y: 225 },
+      { id: "floor", label: "Floor", emoji: "🎒", x: 585, y: 330 }
     ];
+
+    const schoolObjects = {
+      classroom: [
+        { id: "board", label: "Board", emoji: "🧑‍🏫", x: 155, y: 180 },
+        { id: "desk", label: "Desk", emoji: "✏️", x: 340, y: 330 },
+        { id: "backpack", label: "Backpack", emoji: "🎒", x: 530, y: 330 },
+        { id: "globe", label: "Globe", emoji: "🌎", x: 700, y: 210 }
+      ],
+      library: [
+        { id: "books", label: "Books", emoji: "📚", x: 160, y: 270 },
+        { id: "rug", label: "Reading Rug", emoji: "🟩", x: 385, y: 380 },
+        { id: "computer", label: "Computer", emoji: "💻", x: 585, y: 270 },
+        { id: "clock", label: "Clock", emoji: "⏰", x: 725, y: 140 }
+      ]
+    };
+
+    const adventures = [
+      { id: "park", name: "Park", emoji: "🌳", item: "🏅 Park Badge", audio: "park_unlocked" },
+      { id: "zoo", name: "Zoo", emoji: "🦁", item: "🎟️ Zoo Ticket", audio: "zoo_unlocked" },
+      { id: "museum", name: "Museum", emoji: "🏛️", item: "🗺️ Museum Map", audio: "museum_unlocked" },
+      { id: "supermarket", name: "Supermarket", emoji: "🛒", item: "📝 Snack List", audio: "supermarket_unlocked" },
+      { id: "racetrack", name: "Race Track", emoji: "🏁", item: "🏁 Race Flag", audio: "racetrack_unlocked" },
+      { id: "space", name: "Space Library", emoji: "🚀", item: "📘 Star Book", audio: "space_unlocked" }
+    ];
+
+    const houseStory = [
+      { room: "living", item: "📝 First Clue", message: "Peanut found a picture clue! It shows the kitchen.", nextRoom: "kitchen", audio: "go_kitchen" },
+      { room: "kitchen", item: "🍪 Cookie Clue", message: "Peanut found a cookie clue! It shows the bathroom.", nextRoom: "bathroom", audio: "go_bathroom" },
+      { room: "bathroom", item: "🧲 Magnet", message: "Peanut found a magnet! It shows the bedroom.", nextRoom: "bedroom", audio: "go_bedroom" },
+      { room: "bedroom", item: "🔑 Key", message: "Peanut found the key! Go tap the front door.", nextRoom: "living", audio: "go_door" }
+    ];
+
+    function resizeGame() {
+      const sw = window.innerWidth;
+      const sh = window.innerHeight;
+      const scale = Math.min(sw / 1000, sh / 620);
+      gameShell.style.transform = "scale(" + scale + ")";
+    }
+
+    window.addEventListener("resize", resizeGame);
+    window.addEventListener("orientationchange", function () {
+      setTimeout(resizeGame, 250);
+    });
 
     function chooseOne(array) {
       return array[Math.floor(Math.random() * array.length)];
     }
 
     function vibrate(pattern) {
-      if (navigator.vibrate) {
-        navigator.vibrate(pattern);
-      }
+      if (navigator.vibrate) navigator.vibrate(pattern);
     }
 
     function stopAudio() {
@@ -1824,17 +1253,12 @@
 
     function playVoice(audioKey) {
       stopAudio();
-
-      if (!audioKey || !audioFiles[audioKey]) {
-        return;
-      }
+      if (!audioKey || !audioFiles[audioKey]) return;
 
       currentAudio = new Audio(audioFiles[audioKey]);
-
       currentAudio.onerror = function () {
         message.textContent = message.textContent + "  [Missing voice file: " + audioFiles[audioKey] + "]";
       };
-
       currentAudio.play().catch(function () {});
     }
 
@@ -1847,12 +1271,11 @@
       startScreen.style.display = "none";
       setTimeout(function () {
         playVoice("start");
-      }, 120);
+      }, 150);
     }
 
     function toggleAutoRead() {
       autoRead = !autoRead;
-
       if (autoRead) {
         autoReadBtn.textContent = "🔊 Auto On";
         autoReadBtn.classList.add("on");
@@ -1868,41 +1291,29 @@
     function setMessage(text, audioKey) {
       message.textContent = text;
       currentAudioKey = audioKey || null;
-
-      message.classList.remove("bounce-message");
-      void message.offsetWidth;
-      message.classList.add("bounce-message");
-
-      if (autoRead && audioKey && gameStarted) {
-        playVoice(audioKey);
-      }
+      if (autoRead && audioKey && gameStarted) playVoice(audioKey);
     }
 
-    function showPictureClue(room, text) {
-      const icon = roomIcons[room] || "⭐";
-      pictureClue.innerHTML = `
-        <div class="picture-clue">
-          <div class="big-icon">${icon}</div>
-          <div class="clue-text">${text}</div>
+    function showClue(room, text) {
+      clueBox.innerHTML = `
+        <div class="clue">
+          <div class="clueIcon">${roomIcons[room] || "⭐"}</div>
+          <div class="clueText">${text}</div>
         </div>
       `;
     }
 
     function addInventory(item) {
-      if (!game.inventory.includes(item)) {
-        game.inventory.push(item);
-      }
+      if (!game.inventory.includes(item)) game.inventory.push(item);
       renderInventory();
     }
 
     function renderInventory() {
       inventory.innerHTML = "";
-
-      if (game.inventory.length === 0) {
+      if (!game.inventory.length) {
         inventory.innerHTML = '<div class="slot">Empty</div>';
         return;
       }
-
       game.inventory.forEach(item => {
         const div = document.createElement("div");
         div.className = "slot";
@@ -1911,132 +1322,109 @@
       });
     }
 
-    function clearScene() {
-      document.querySelectorAll(".game-piece").forEach(el => el.remove());
+    function clearPieces() {
+      document.querySelectorAll(".piece").forEach(el => el.remove());
     }
 
-    function renderBackground(type) {
+    function renderBg(type) {
       peanut.classList.remove("happy");
-
-      if (type === "inside") {
-        background.innerHTML = '<div class="wall"></div><div class="floor"></div>';
-      }
-
+      if (type === "inside") background.innerHTML = '<div class="wall"></div><div class="floor"></div>';
       if (type === "outside") {
-        background.innerHTML = '<div class="outside-bg"></div>';
+        background.innerHTML = '<div class="outside"></div>';
         peanut.classList.add("happy");
       }
-
-      if (type === "garage") {
-        background.innerHTML = '<div class="garage-bg"></div>';
-      }
-
-      if (type === "school") {
-        background.innerHTML = '<div class="school-bg"></div>';
-      }
-
+      if (type === "garage") background.innerHTML = '<div class="garageBg"></div>';
+      if (type === "school") background.innerHTML = '<div class="schoolBg"></div>';
       if (type === "map") {
-        background.innerHTML = '<div class="map-bg"></div>';
+        background.innerHTML = '<div class="mapBg"></div>';
         peanut.classList.add("happy");
       }
     }
 
-    function makeRealObject(obj, clickHandler) {
+    function makeObject(obj, clickHandler) {
       const el = document.createElement("div");
-      el.className = "clickable game-piece " + obj.className;
+      el.className = "obj piece " + (obj.type || "emojiObj");
+      el.style.left = obj.x + "px";
+      el.style.top = obj.y + "px";
 
-      if (obj.className === "plant") {
-        el.innerHTML = '<div class="leaf one"></div><div class="leaf two"></div><div class="leaf three"></div><div class="pot"></div>';
+      if (obj.type === "plantObj") {
+        el.innerHTML = '<div class="leaf a"></div><div class="leaf b"></div><div class="leaf c"></div><div class="pot"></div>';
+      } else if (obj.emoji) {
+        el.textContent = obj.emoji;
       }
 
       const label = document.createElement("div");
-      label.className = "obj-label";
+      label.className = "label";
       label.textContent = obj.label;
       el.appendChild(label);
-
-      el.onclick = clickHandler;
-      scene.appendChild(el);
-    }
-
-    function makeSmallObject(obj, clickHandler) {
-      const el = document.createElement("div");
-      el.className = "small-object game-piece";
-      el.style.left = obj.x + "%";
-      el.style.top = obj.y + "%";
-      el.innerHTML = `${obj.emoji}<div class="obj-label">${obj.label}</div>`;
       el.onclick = clickHandler;
       scene.appendChild(el);
     }
 
     function makePerson(kind, x, y, clickHandler) {
       const el = document.createElement("div");
-      el.className = "person game-piece " + kind;
-      el.style.left = x + "%";
-      el.style.top = y + "%";
+      el.className = "person piece " + kind;
+      el.style.left = x + "px";
+      el.style.top = y + "px";
       el.innerHTML = `
-        <div class="person-face"></div>
-        <div class="person-body"></div>
+        <div class="face"></div>
+        <div class="body"></div>
         <div>${kind === "mommy" ? "Mommy" : "Daddy"}</div>
       `;
       el.onclick = clickHandler;
       scene.appendChild(el);
     }
 
-    function renderSide() {
-      side.innerHTML = "";
-
-      let rooms = [];
+    function renderRooms() {
+      rooms.innerHTML = "";
+      let list = [];
 
       if (game.stage === "house") {
-        rooms = [
-          { id: "living", name: "🛋️ Living" },
-          { id: "kitchen", name: "🍪 Kitchen" },
-          { id: "bathroom", name: "🛁 Bath" },
-          { id: "bedroom", name: "🛏️ Bed" }
+        list = [
+          ["living", "🛋️ Living"],
+          ["kitchen", "🍪 Kitchen"],
+          ["bathroom", "🛁 Bath"],
+          ["bedroom", "🛏️ Bed"]
         ];
       }
 
       if (game.stage === "yard") {
-        rooms = [
-          { id: "garden", name: "🌸 Garden" },
-          { id: "garage", name: "🔧 Garage" },
-          { id: "yardgate", name: "🚪 Gate" }
+        list = [
+          ["garden", "🌸 Garden"],
+          ["garage", "🔧 Garage"],
+          ["yardgate", "🚪 Gate"]
         ];
       }
 
-      if (game.stage === "bus") {
-        rooms = [{ id: "bus", name: "🚌 Bus" }];
-      }
+      if (game.stage === "bus") list = [["bus", "🚌 Bus"]];
 
       if (game.stage === "school") {
-        rooms = [
-          { id: "classroom", name: "✏️ Class" },
-          { id: "library", name: "📚 Library" },
-          { id: "schoolExit", name: "🏫 Exit" }
+        list = [
+          ["classroom", "✏️ Class"],
+          ["library", "📚 Library"],
+          ["schoolExit", "🏫 Exit"]
         ];
       }
 
-      if (game.stage === "map") {
-        rooms = [{ id: "map", name: "🗺️ Map" }];
-      }
+      if (game.stage === "map") list = [["map", "🗺️ Map"]];
 
-      rooms.forEach(room => {
+      list.forEach(([id, name]) => {
         const btn = document.createElement("button");
-        btn.className = "room-btn" + (currentRoom === room.id ? " active" : "");
-        btn.textContent = room.name;
+        btn.className = "roomBtn" + (currentRoom === id ? " active" : "");
+        btn.textContent = name;
         btn.onclick = function () {
-          currentRoom = room.id;
+          currentRoom = id;
           render();
           giveRoomReminder();
         };
-        side.appendChild(btn);
+        rooms.appendChild(btn);
       });
     }
 
     function render() {
-      clearScene();
+      clearPieces();
       renderInventory();
-      renderSide();
+      renderRooms();
 
       if (game.stage === "house") renderHouse();
       if (game.stage === "yard") renderYard();
@@ -2046,25 +1434,12 @@
     }
 
     function renderHouse() {
-      renderBackground("inside");
+      renderBg("inside");
       roomName.textContent = roomNames[currentRoom];
-
-      houseObjects[currentRoom].forEach(obj => {
-        makeRealObject(obj, function () {
-          searchHouseObject(obj);
-        });
-      });
+      houseObjects[currentRoom].forEach(obj => makeObject(obj, () => searchHouseObject(obj)));
 
       if (currentRoom === "living") {
-        const door = document.createElement("div");
-        door.className = "clickable game-piece door";
-        door.onclick = tryFrontDoor;
-        scene.appendChild(door);
-
-        const label = document.createElement("div");
-        label.className = "obj-label";
-        label.textContent = "Front Door";
-        door.appendChild(label);
+        makeObject({ id: "door", label: "Front Door", type: "doorObj", x: 720, y: 220 }, tryFrontDoor);
       }
     }
 
@@ -2073,13 +1448,13 @@
 
       if (!step) {
         setMessage("Peanut has the key. Tap the front door!", "go_door");
-        showPictureClue("living", "Go to the door!");
+        showClue("living", "Go to door!");
         return;
       }
 
       if (currentRoom !== step.room) {
         setMessage("This is a fun room, but the picture clue shows a different room.", "wrong_room_house");
-        showPictureClue(step.room, "Go here!");
+        showClue(step.room, "Go here!");
         return;
       }
 
@@ -2088,13 +1463,7 @@
       if (obj.id === correctObjectId) {
         addInventory(step.item);
         setMessage(step.message, step.audio);
-
-        if (step.item === "🔑 Key") {
-          showPictureClue("living", "Go to the door!");
-        } else {
-          showPictureClue(step.nextRoom, "Go here next!");
-        }
-
+        showClue(step.item === "🔑 Key" ? "living" : step.nextRoom, step.item === "🔑 Key" ? "Go to door!" : "Go here next!");
         game.houseStep++;
         makeConfetti();
         vibrate([80, 40, 80]);
@@ -2102,7 +1471,7 @@
       }
 
       setMessage("Not there. Try another object in this room.", "try_another_object");
-      showPictureClue(step.room, "Look in this room!");
+      showClue(step.room, "Look here!");
       vibrate(40);
     }
 
@@ -2110,90 +1479,60 @@
       if (game.houseStep < houseStory.length) {
         setMessage("The front door is locked. Peanut needs the key first.", "door_locked");
         const step = houseStory[game.houseStep];
-        showPictureClue(step.room, "Find this clue!");
+        showClue(step.room, "Find clue!");
         vibrate(60);
         return;
       }
 
       setMessage("Peanut unlocked the door! Now find Mommy in the garden.", "door_unlocked");
-      showPictureClue("garden", "Find Mommy!");
+      showClue("garden", "Find Mommy!");
       makeConfetti();
       vibrate([100, 50, 100]);
 
-      setTimeout(function () {
+      setTimeout(() => {
         game.stage = "yard";
         currentRoom = "garden";
         render();
         setMessage("Peanut is outside! Find Mommy in the garden.", "find_mommy");
-        showPictureClue("garden", "Find Mommy!");
-      }, 900);
+        showClue("garden", "Find Mommy!");
+      }, 850);
     }
 
     function renderYard() {
-      if (currentRoom === "garage") {
-        renderBackground("garage");
-      } else {
-        renderBackground("outside");
-      }
-
+      renderBg(currentRoom === "garage" ? "garage" : "outside");
       roomName.textContent = roomNames[currentRoom];
 
       if (currentRoom === "garden") {
-        yardObjects.garden.forEach(obj => {
-          makeRealObject(obj, function () {
-            searchGarden(obj);
-          });
-        });
-
+        yardObjects.garden.forEach(obj => makeObject(obj, () => searchGarden(obj)));
         if (game.found.mommy) {
-          makePerson("mommy", 78, 47, function () {
+          makePerson("mommy", 695, 270, () => {
             setMessage("Mommy says, great job Peanut! Now go find Daddy in the garage.", "mommy_talk");
-            showPictureClue("garage", "Find Daddy!");
+            showClue("garage", "Find Daddy!");
           });
         }
       }
 
       if (currentRoom === "garage") {
-        yardObjects.garage.forEach(obj => {
-          makeRealObject(obj, function () {
-            searchGarage(obj);
-          });
-        });
-
+        yardObjects.garage.forEach(obj => makeObject(obj, () => searchGarage(obj)));
         if (game.found.daddy) {
-          makePerson("daddy", 78, 47, function () {
+          makePerson("daddy", 695, 270, () => {
             setMessage("Daddy says, you found me! Now go to the yard gate.", "daddy_talk");
-            showPictureClue("yardgate", "Go to gate!");
+            showClue("yardgate", "Go to gate!");
           });
         }
       }
 
       if (currentRoom === "yardgate") {
-        const gate = document.createElement("div");
-        gate.className = "clickable game-piece gate";
-        gate.onclick = tryYardGate;
-        scene.appendChild(gate);
-
-        makeSmallObject(
-          { label: "Mailbox", emoji: "📬", x: 20, y: 50 },
-          function () {
-            setMessage("The mailbox says, the school bus is waiting!", "mailbox");
-          }
-        );
-
-        makeSmallObject(
-          { label: "Dog House", emoji: "🐶", x: 72, y: 53 },
-          function () {
-            setMessage("The dog says, woof woof bus!", "dog_house");
-          }
-        );
+        makeObject({ id: "gate", label: "Yard Gate", type: "gateObj", x: 310, y: 285 }, tryYardGate);
+        makeObject({ id: "mailbox", label: "Mailbox", emoji: "📬", x: 135, y: 320 }, () => setMessage("The mailbox says, the school bus is waiting!", "mailbox"));
+        makeObject({ id: "doghouse", label: "Dog House", emoji: "🐶", x: 650, y: 330 }, () => setMessage("The dog says, woof woof bus!", "dog_house"));
       }
     }
 
     function searchGarden(obj) {
       if (game.found.mommy) {
         setMessage("Mommy is already found. Go to the garage to find Daddy.", "mommy_already_found");
-        showPictureClue("garage", "Find Daddy!");
+        showClue("garage", "Find Daddy!");
         return;
       }
 
@@ -2201,7 +1540,7 @@
         game.found.mommy = true;
         addInventory("💗 Mommy");
         setMessage("You found Mommy! Great job! Now find Daddy in the garage.", "mommy_found");
-        showPictureClue("garage", "Find Daddy!");
+        showClue("garage", "Find Daddy!");
         makeConfetti();
         vibrate([80, 40, 80]);
         render();
@@ -2209,20 +1548,20 @@
       }
 
       setMessage("Mommy is not there. Try another garden object.", "mommy_not_there");
-      showPictureClue("garden", "Find Mommy!");
+      showClue("garden", "Find Mommy!");
       vibrate(40);
     }
 
     function searchGarage(obj) {
       if (!game.found.mommy) {
         setMessage("Peanut should find Mommy in the garden first.", "need_mommy_first");
-        showPictureClue("garden", "Find Mommy!");
+        showClue("garden", "Find Mommy!");
         return;
       }
 
       if (game.found.daddy) {
         setMessage("Daddy is already found. Go to the yard gate.", "daddy_already_found");
-        showPictureClue("yardgate", "Go to gate!");
+        showClue("yardgate", "Go to gate!");
         return;
       }
 
@@ -2231,7 +1570,7 @@
         addInventory("🧢 Daddy");
         addInventory("🚌 Bus Pass");
         setMessage("You found Daddy in the garage! Daddy gives Peanut a bus pass. Go to the yard gate.", "daddy_found");
-        showPictureClue("yardgate", "Go to gate!");
+        showClue("yardgate", "Go to gate!");
         makeConfetti();
         vibrate([80, 40, 80]);
         render();
@@ -2239,63 +1578,54 @@
       }
 
       setMessage("Daddy is not there. Try another garage object.", "daddy_not_there");
-      showPictureClue("garage", "Find Daddy!");
+      showClue("garage", "Find Daddy!");
       vibrate(40);
     }
 
     function tryYardGate() {
       if (!game.found.mommy) {
         setMessage("Peanut needs Mommy first. Go to the garden.", "need_mommy_gate");
-        showPictureClue("garden", "Find Mommy!");
+        showClue("garden", "Find Mommy!");
         return;
       }
 
       if (!game.found.daddy) {
         setMessage("Peanut needs Daddy first. Go to the garage.", "need_daddy_gate");
-        showPictureClue("garage", "Find Daddy!");
+        showClue("garage", "Find Daddy!");
         return;
       }
 
       setMessage("The gate opens! Peanut runs to the school bus.", "gate_opens");
-      showPictureClue("bus", "Go to bus!");
+      showClue("bus", "Go to bus!");
       makeConfetti();
       vibrate([100, 50, 100]);
 
-      setTimeout(function () {
+      setTimeout(() => {
         game.stage = "bus";
         currentRoom = "bus";
         render();
         setMessage("Peanut made it to the school bus. Find the backpack.", "find_backpack");
-        showPictureClue("bus", "Find backpack!");
-      }, 900);
+        showClue("bus", "Find backpack!");
+      }, 850);
     }
 
     function renderBus() {
-      renderBackground("outside");
+      renderBg("outside");
       roomName.textContent = "School Bus";
 
       const bus = document.createElement("div");
-      bus.className = "bus game-piece";
-      bus.innerHTML = `
-        <div class="bus-window w1"></div>
-        <div class="bus-window w2"></div>
-        <div class="bus-window w3"></div>
-        <div class="bus-window w4"></div>
-      `;
+      bus.className = "busObj piece";
+      bus.innerHTML = '<div class="busWin bw1"></div><div class="busWin bw2"></div><div class="busWin bw3"></div><div class="busWin bw4"></div>';
       bus.onclick = tryRideBus;
       scene.appendChild(bus);
 
-      busObjects.forEach(obj => {
-        makeSmallObject(obj, function () {
-          searchBus(obj);
-        });
-      });
+      busObjects.forEach(obj => makeObject(obj, () => searchBus(obj)));
     }
 
     function searchBus(obj) {
       if (game.found.backpack) {
         setMessage("Peanut has the backpack. Tap the big school bus.", "tap_bus");
-        showPictureClue("bus", "Tap the bus!");
+        showClue("bus", "Tap bus!");
         return;
       }
 
@@ -2303,70 +1633,52 @@
         game.found.backpack = true;
         addInventory("🎒 Backpack");
         setMessage("Peanut found the backpack! Tap the big school bus.", "backpack_found");
-        showPictureClue("bus", "Tap the bus!");
+        showClue("bus", "Tap bus!");
         makeConfetti();
         vibrate([80, 40, 80]);
         return;
       }
 
       setMessage("No backpack there. Try another bus spot.", "backpack_not_there");
-      showPictureClue("bus", "Find backpack!");
+      showClue("bus", "Find backpack!");
       vibrate(40);
     }
 
     function tryRideBus() {
       if (!game.found.backpack) {
         setMessage("Peanut needs the backpack before riding to school.", "need_backpack");
-        showPictureClue("bus", "Find backpack!");
+        showClue("bus", "Find backpack!");
         return;
       }
 
       setMessage("Peanut rides the bus to school!", "go_school");
-      showPictureClue("classroom", "Go to class!");
+      showClue("classroom", "Go to class!");
       makeConfetti();
       vibrate([100, 50, 100]);
 
-      setTimeout(function () {
+      setTimeout(() => {
         game.stage = "school";
         currentRoom = "classroom";
         render();
         setMessage("Peanut is at school! Find the letters in the classroom.", "find_letters");
-        showPictureClue("classroom", "Find letters!");
-      }, 900);
+        showClue("classroom", "Find letters!");
+      }, 850);
     }
 
     function renderSchool() {
-      renderBackground("school");
+      renderBg("school");
       roomName.textContent = roomNames[currentRoom];
 
-      if (currentRoom === "classroom") {
-        schoolObjects.classroom.forEach(obj => {
-          makeSmallObject(obj, function () {
-            searchSchool(obj);
-          });
-        });
-      }
-
-      if (currentRoom === "library") {
-        schoolObjects.library.forEach(obj => {
-          makeSmallObject(obj, function () {
-            searchSchool(obj);
-          });
-        });
-      }
+      if (currentRoom === "classroom") schoolObjects.classroom.forEach(obj => makeObject(obj, () => searchSchool(obj)));
+      if (currentRoom === "library") schoolObjects.library.forEach(obj => makeObject(obj, () => searchSchool(obj)));
 
       if (currentRoom === "schoolExit") {
         const door = document.createElement("div");
-        door.className = "school-door game-piece";
+        door.className = "schoolDoor piece";
         door.onclick = trySchoolExit;
         scene.appendChild(door);
 
-        makeSmallObject(
-          { label: "Bell", emoji: "🔔", x: 36, y: 43 },
-          function () {
-            setMessage("Ring ring! Peanut is ready for more adventures.", "school_bell");
-          }
-        );
+        makeObject({ id: "bell", label: "Bell", emoji: "🔔", x: 330, y: 235 }, () => setMessage("Ring ring! Peanut is ready for more adventures.", "school_bell"));
       }
     }
 
@@ -2375,7 +1687,7 @@
         game.found.letters = true;
         addInventory("🔤 ABC");
         setMessage("Peanut found letters! A B C! Now go to the library.", "letters_found");
-        showPictureClue("library", "Find numbers!");
+        showClue("library", "Find numbers!");
         makeConfetti();
         vibrate([80, 40, 80]);
         return;
@@ -2383,7 +1695,7 @@
 
       if (!game.found.letters) {
         setMessage("Look for letters in the classroom.", "look_for_letters");
-        showPictureClue("classroom", "Find letters!");
+        showClue("classroom", "Find letters!");
         return;
       }
 
@@ -2391,7 +1703,7 @@
         game.found.numbers = true;
         addInventory("🔢 123");
         setMessage("Peanut found numbers! One, two, three! Now find the hall pass.", "numbers_found");
-        showPictureClue(currentRoom, "Find pass!");
+        showClue(currentRoom, "Find pass!");
         makeConfetti();
         vibrate([80, 40, 80]);
         return;
@@ -2399,7 +1711,7 @@
 
       if (!game.found.numbers) {
         setMessage("Look for numbers in the library.", "look_for_numbers");
-        showPictureClue("library", "Find numbers!");
+        showClue("library", "Find numbers!");
         return;
       }
 
@@ -2407,7 +1719,7 @@
         game.found.hallPass = true;
         addInventory("🎫 Pass");
         setMessage("Peanut found the hall pass! Go to the school exit.", "hall_pass_found");
-        showPictureClue("schoolExit", "Go to exit!");
+        showClue("schoolExit", "Go to exit!");
         makeConfetti();
         vibrate([80, 40, 80]);
         return;
@@ -2415,30 +1727,30 @@
 
       if (!game.found.hallPass) {
         setMessage("Look for the hall pass.", "look_for_hall_pass");
-        showPictureClue(currentRoom, "Find pass!");
+        showClue(currentRoom, "Find pass!");
         return;
       }
 
       setMessage("Go to the school exit.", "go_school_exit");
-      showPictureClue("schoolExit", "Go to exit!");
+      showClue("schoolExit", "Go to exit!");
     }
 
     function trySchoolExit() {
       if (!game.found.letters) {
         setMessage("Peanut needs letters first.", "need_letters");
-        showPictureClue("classroom", "Find letters!");
+        showClue("classroom", "Find letters!");
         return;
       }
 
       if (!game.found.numbers) {
         setMessage("Peanut needs numbers first.", "need_numbers");
-        showPictureClue("library", "Find numbers!");
+        showClue("library", "Find numbers!");
         return;
       }
 
       if (!game.found.hallPass) {
         setMessage("Peanut needs the hall pass first.", "need_hall_pass");
-        showPictureClue(currentRoom, "Find pass!");
+        showClue(currentRoom, "Find pass!");
         return;
       }
 
@@ -2446,41 +1758,34 @@
       makeConfetti();
       vibrate([100, 50, 100]);
 
-      setTimeout(function () {
+      setTimeout(() => {
         game.stage = "map";
         currentRoom = "map";
         render();
         setMessage("Choose Peanut’s next adventure.", "choose_adventure");
-        showPictureClue("map", "Pick one!");
-      }, 900);
+        showClue("map", "Pick one!");
+      }, 850);
     }
 
     function renderMap() {
-      renderBackground("map");
+      renderBg("map");
       roomName.textContent = "Adventure Map";
 
       const positions = [
-        { x: 14, y: 23 },
-        { x: 39, y: 23 },
-        { x: 64, y: 23 },
-        { x: 14, y: 54 },
-        { x: 39, y: 54 },
-        { x: 64, y: 54 }
+        [105, 130], [340, 130], [575, 130],
+        [105, 305], [340, 305], [575, 305]
       ];
 
-      adventures.forEach((place, index) => {
+      adventures.forEach((place, i) => {
         const card = document.createElement("div");
-        card.className = "map-card game-piece";
-        card.style.left = positions[index].x + "%";
-        card.style.top = positions[index].y + "%";
-        card.innerHTML = `
-          <div class="emoji">${place.emoji}</div>
-          <div>${place.name}</div>
-        `;
+        card.className = "mapCard piece";
+        card.style.left = positions[i][0] + "px";
+        card.style.top = positions[i][1] + "px";
+        card.innerHTML = `<div class="mapEmoji">${place.emoji}</div><div>${place.name}</div>`;
         card.onclick = function () {
           addInventory(place.item);
           setMessage("Peanut starts the " + place.name + " adventure! This will become a full escape scene later.", place.audio);
-          showPictureClue("map", place.emoji + " unlocked!");
+          showClue("map", place.emoji + " unlocked!");
           makeConfetti();
           vibrate([80, 40, 80]);
         };
@@ -2494,7 +1799,7 @@
 
         if (!step) {
           setMessage("Peanut found the key! Go tap the front door.", "go_door");
-          showPictureClue("living", "Go to door!");
+          showClue("living", "Go to door!");
           return;
         }
 
@@ -2506,61 +1811,61 @@
         };
 
         setMessage("Good job! Search the " + roomNames[step.room].toLowerCase() + ".", audioForRoom[step.room]);
-        showPictureClue(step.room, "Go here!");
+        showClue(step.room, "Go here!");
         return;
       }
 
       if (game.stage === "yard") {
         if (!game.found.mommy) {
           setMessage("Peanut is outside! Find Mommy in the garden.", "find_mommy");
-          showPictureClue("garden", "Find Mommy!");
+          showClue("garden", "Find Mommy!");
           return;
         }
 
         if (!game.found.daddy) {
           setMessage("Great job! Now find Daddy in the garage.", "find_daddy");
-          showPictureClue("garage", "Find Daddy!");
+          showClue("garage", "Find Daddy!");
           return;
         }
 
         setMessage("Daddy gives Peanut a bus pass. Go to the yard gate.", "go_gate");
-        showPictureClue("yardgate", "Go to gate!");
+        showClue("yardgate", "Go gate!");
         return;
       }
 
       if (game.stage === "bus") {
         setMessage("Peanut made it to the school bus. Find the backpack.", "find_backpack");
-        showPictureClue("bus", "Find backpack!");
+        showClue("bus", "Find backpack!");
         return;
       }
 
       if (game.stage === "school") {
         if (!game.found.letters) {
           setMessage("Peanut is at school! Find the letters in the classroom.", "find_letters");
-          showPictureClue("classroom", "Find letters!");
+          showClue("classroom", "Find letters!");
           return;
         }
 
         if (!game.found.numbers) {
           setMessage("Find numbers in the library.", "find_numbers");
-          showPictureClue("library", "Find numbers!");
+          showClue("library", "Find numbers!");
           return;
         }
 
         if (!game.found.hallPass) {
           setMessage("Find the hall pass.", "find_hall_pass");
-          showPictureClue(currentRoom, "Find pass!");
+          showClue(currentRoom, "Find pass!");
           return;
         }
 
         setMessage("Go to the school exit.", "go_school_exit");
-        showPictureClue("schoolExit", "Go to exit!");
+        showClue("schoolExit", "Go exit!");
         return;
       }
 
       if (game.stage === "map") {
         setMessage("Pick any adventure picture.", "pick_adventure");
-        showPictureClue("map", "Pick one!");
+        showClue("map", "Pick one!");
       }
     }
 
@@ -2570,7 +1875,7 @@
 
         if (!step) {
           setMessage("Peanut found the key! Go tap the front door.", "go_door");
-          showPictureClue("living", "Go to door!");
+          showClue("living", "Go door!");
           return;
         }
 
@@ -2583,10 +1888,10 @@
 
         if (currentRoom === step.room) {
           setMessage("Good job! Search the " + roomNames[step.room].toLowerCase() + ".", audioForRoom[step.room]);
-          showPictureClue(step.room, "Search here!");
+          showClue(step.room, "Search here!");
         } else {
           setMessage("This is a fun room, but the picture clue shows a different room.", "wrong_room_house");
-          showPictureClue(step.room, "Go here!");
+          showClue(step.room, "Go here!");
         }
       }
     }
@@ -2596,12 +1901,11 @@
 
       for (let i = 0; i < 18; i++) {
         const piece = document.createElement("div");
-        piece.className = "confetti game-piece";
-        piece.style.left = Math.random() * 94 + "%";
+        piece.className = "confetti piece";
+        piece.style.left = Math.random() * 820 + "px";
         piece.style.top = "-35px";
         piece.style.background = colors[Math.floor(Math.random() * colors.length)];
-        piece.style.animationDelay = Math.random() * 1.7 + "s";
-        piece.style.animationDuration = 2 + Math.random() * 2.2 + "s";
+        piece.style.animationDelay = Math.random() * 1.5 + "s";
         scene.appendChild(piece);
       }
     }
@@ -2622,7 +1926,6 @@
 
       game.mommySpot = chooseOne(yardObjects.garden).id;
       game.daddySpot = chooseOne(yardObjects.garage).id;
-
       game.backpackSpot = chooseOne(busObjects).id;
 
       const classPick = chooseOne(schoolObjects.classroom);
@@ -2634,9 +1937,10 @@
       currentRoom = "living";
       render();
       setMessage("Help Peanut escape! Tap objects in the living room to find a picture clue.", "start");
-      showPictureClue("living", "Start here!");
+      showClue("living", "Start here!");
     }
 
+    resizeGame();
     newGame();
   </script>
 </body>

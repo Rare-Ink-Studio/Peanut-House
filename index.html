@@ -437,13 +437,13 @@
     .scene-art {
       position: absolute;
       inset: 0;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
-
-    .living-room-art {
-      background-image: url("background images/living_room_background.png");
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center;
+      pointer-events: none;
+      z-index: 1;
     }
 
     .emoji-object {
@@ -1287,10 +1287,10 @@
 
     const houseObjects = {
       living: [
-        { id: "lamp", label: "Lamp", src: "lamp_transparent.png", width: "clamp(58px, 8vw, 128px)", x: 16, y: 62, z: 18 },
-        { id: "rug", label: "Rug", src: "rug_transparent.png", width: "clamp(190px, 39vw, 600px)", x: 49, y: 82, z: 13 },
-        { id: "couch", label: "Couch", src: "couch_transparent.png", width: "clamp(220px, 38vw, 570px)", x: 51, y: 66, z: 17 },
-        { id: "table", label: "Side Table", src: "table_transparent.png", width: "clamp(112px, 16vw, 240px)", x: 79, y: 66, z: 19 }
+        { id: "lamp", label: "Lamp", src: "lamp.png", width: "clamp(58px, 8vw, 128px)", x: 16, y: 62, z: 18 },
+        { id: "rug", label: "Rug", src: "rug.png", width: "clamp(190px, 39vw, 600px)", x: 49, y: 82, z: 13 },
+        { id: "couch", label: "Couch", src: "couch.png", width: "clamp(220px, 38vw, 570px)", x: 51, y: 66, z: 17 },
+        { id: "table", label: "Side Table", src: "table.png", width: "clamp(112px, 16vw, 240px)", x: 79, y: 66, z: 19 }
       ],
       kitchen: [
         { id: "fridge", label: "Fridge", type: "fridge-object", x: 18, y: 58 },
@@ -1467,6 +1467,7 @@
     function renderBackground(type) {
       peanut.classList.remove("happy");
 
+      // These names match the exact files shown in the GitHub recording.
       const art = {
         living: "living_room_background.png",
         kitchen: "kitchen_background.png",
@@ -1483,7 +1484,10 @@
       };
 
       if (art[type]) {
-        background.innerHTML = '<div class="scene-art" style="background-image:url(\"background images/' + art[type] + '\")"></div>';
+        const imagePath = encodeURI("background images/" + art[type]);
+        // Use a normal image element instead of a CSS background so GitHub Pages
+        // loads every room image consistently, including the folder name with a space.
+        background.innerHTML = '<img class="scene-art" src="' + imagePath + '" alt="" aria-hidden="true">';
         if (type === "garden" || type === "bus" || type === "map" || type === "schoolYard") {
           peanut.classList.add("happy");
         }

@@ -1287,14 +1287,14 @@
 
     const houseObjects = {
       living: [
-        /* Layer the rug first so it sits on the floor in front of the couch. */
-        { id: "rug", label: "Rug", src: "rug.png", width: "clamp(180px, 30vw, 455px)", x: 32, y: 77, z: 13, hideLabel: true },
-        /* Smaller and higher creates depth: the couch is visually against the back wall under the window. */
-        { id: "couch", label: "Couch", src: "couch.png", width: "clamp(175px, 25vw, 390px)", x: 33, y: 53, z: 17, hideLabel: true },
-        /* The table is tucked beside the couch on the left. */
-        { id: "table", label: "Side Table", src: "table.png", width: "clamp(88px, 11vw, 168px)", x: 17, y: 58, z: 19, hideLabel: true },
-        /* The floor lamp is beside the couch on the right, not in front of the door. */
-        { id: "lamp", label: "Lamp", src: "lamp.png", width: "clamp(47px, 5.8vw, 92px)", x: 59, y: 60, z: 18, hideLabel: true }
+        /* Rug centered in front of the couch. */
+        { id: "rug", label: "Rug", src: "rug.png", width: "clamp(165px, 28vw, 410px)", x: 31, y: 79, z: 13, hideLabel: true },
+        /* Smaller, slightly left, and higher so it reads as being against the back wall under the window. */
+        { id: "couch", label: "Couch", src: "couch.png", width: "clamp(162px, 23vw, 350px)", x: 31, y: 52, z: 17, hideLabel: true },
+        /* Side table spaced farther left from the couch. */
+        { id: "table", label: "Side Table", src: "table.png", width: "clamp(78px, 9.5vw, 145px)", x: 13, y: 60, z: 18, hideLabel: true },
+        /* Floor lamp placed back in the room corner. */
+        { id: "lamp", label: "Lamp", src: "lamp.png", width: "clamp(39px, 4.8vw, 76px)", x: 53, y: 58, z: 16, hideLabel: true }
       ],
       kitchen: [
         { id: "fridge", label: "Fridge", type: "fridge-object", x: 18, y: 58 },

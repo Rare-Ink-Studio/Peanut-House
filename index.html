@@ -1287,10 +1287,10 @@
 
     const houseObjects = {
       living: [
-        { id: "lamp", label: "Lamp", src: "lamp.png", width: "clamp(58px, 8vw, 128px)", x: 16, y: 62, z: 18 },
-        { id: "rug", label: "Rug", src: "rug.png", width: "clamp(190px, 39vw, 600px)", x: 49, y: 82, z: 13 },
-        { id: "couch", label: "Couch", src: "couch.png", width: "clamp(220px, 38vw, 570px)", x: 51, y: 66, z: 17 },
-        { id: "table", label: "Side Table", src: "table.png", width: "clamp(112px, 16vw, 240px)", x: 79, y: 66, z: 19 }
+        { id: "rug", label: "Rug", src: "rug.png", width: "clamp(190px, 39vw, 600px)", x: 34, y: 83, z: 13, hideLabel: true },
+        { id: "couch", label: "Couch", src: "couch.png", width: "clamp(220px, 38vw, 570px)", x: 34, y: 66, z: 17, hideLabel: true },
+        { id: "table", label: "Side Table", src: "table.png", width: "clamp(112px, 16vw, 240px)", x: 14, y: 69, z: 19, hideLabel: true },
+        { id: "lamp", label: "Lamp", src: "lamp.png", width: "clamp(58px, 8vw, 128px)", x: 62, y: 62, z: 18, hideLabel: true }
       ],
       kitchen: [
         { id: "fridge", label: "Fridge", type: "fridge-object", x: 18, y: 58 },
@@ -1526,10 +1526,12 @@
         el.textContent = obj.emoji;
       }
 
-      const label = document.createElement("div");
-      label.className = "label";
-      label.textContent = obj.label;
-      el.appendChild(label);
+      if (!obj.hideLabel) {
+        const label = document.createElement("div");
+        label.className = "label";
+        label.textContent = obj.label;
+        el.appendChild(label);
+      }
 
       el.onclick = function () {
         if (obj.src) shakeObject(el);
@@ -1629,7 +1631,7 @@
 
       if (currentRoom === "living") {
         // The door is painted into the living-room artwork, so this invisible hotspot keeps it usable.
-        makeObject({ id: "door", label: "Front Door", type: "door-hotspot", x: 78, y: 43 }, tryFrontDoor);
+        makeObject({ id: "door", label: "Front Door", type: "door-hotspot", x: 78, y: 43, hideLabel: true }, tryFrontDoor);
       }
     }
 

@@ -1299,10 +1299,14 @@
         { id: "lamp", label: "Lamp", src: "lamp.png", width: "clamp(40px, 5vw, 78px)", x: 50, y: 50, z: 16, hideLabel: true }
       ],
       kitchen: [
-        { id: "fridge", label: "Fridge", type: "fridge-object", x: 18, y: 58 },
-        { id: "table", label: "Table", type: "table-object", x: 50, y: 67 },
-        { id: "cookiejar", label: "Cookie Jar", type: "cookie-object", x: 50, y: 49 },
-        { id: "cabinet", label: "Cabinet", type: "cabinet-object", x: 78, y: 70 }
+        /* Refrigerator sits flush to the left wall beneath the window. */
+        { id: "fridge", label: "Refrigerator", src: "kitchen assets/refrigerator.png", width: "clamp(108px, 14vw, 215px)", x: 18, y: 59, z: 17, hideLabel: true },
+        /* Upper cabinet hangs on the back wall above the sink. */
+        { id: "cabinet", label: "Wall Cabinet", src: "kitchen assets/cabinet.png", width: "clamp(175px, 24vw, 390px)", x: 54, y: 34, z: 16, hideLabel: true },
+        /* Sink and lower cabinet set is flush with the back wall, directly beneath the hanging cabinet. */
+        { id: "sink", label: "Sink", src: "kitchen assets/kitchen_sink.png", width: "clamp(190px, 27vw, 430px)", x: 54, y: 60, z: 17, hideLabel: true },
+        /* Peanut table and four chairs sit on the open floor in the foreground-left. */
+        { id: "table", label: "Kitchen Table", src: "kitchen assets/kitchen_table.png", width: "clamp(170px, 25vw, 400px)", x: 31, y: 79, z: 18, hideLabel: true }
       ],
       bathroom: [
         { id: "mirror", label: "Mirror", type: "mirror-object", x: 27, y: 30 },
@@ -1507,7 +1511,7 @@
     function updatePeanutPosition(type) {
       const poses = {
         living:    { left: "56%", bottom: "8%",  width: "clamp(88px, 11.5vw, 148px)" },
-        kitchen:   { left: "56%", bottom: "8%",  width: "clamp(88px, 11.5vw, 148px)" },
+        kitchen:   { left: "70%", bottom: "8%",  width: "clamp(84px, 10.5vw, 138px)" },
         bathroom:  { left: "60%", bottom: "8%",  width: "clamp(84px, 11vw, 140px)" },
         bedroom:   { left: "59%", bottom: "8%",  width: "clamp(88px, 11.5vw, 148px)" },
         garden:    { left: "77%", bottom: "8%",  width: "clamp(88px, 11.5vw, 148px)" },

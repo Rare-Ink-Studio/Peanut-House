@@ -315,16 +315,22 @@
 
     .peanut {
       position: absolute;
-      left: 53%;
-      bottom: 14%;
+      left: 54%;
+      bottom: 10%;
       transform: translateX(-50%);
-      width: clamp(55px, 13vw, 88px);
-      height: clamp(82px, 20vw, 135px);
-      background: #c9823b;
-      border: 5px solid #7b4219;
-      border-radius: 48% 48% 44% 44%;
+      width: clamp(84px, 11vw, 145px);
+      height: auto;
       z-index: 15;
-      box-shadow: inset 9px 0 #d99b58, 0 7px 0 rgba(0, 0, 0, 0.18);
+      filter: drop-shadow(0 6px 8px rgba(44, 22, 5, 0.28));
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .peanut img {
+      width: 100%;
+      height: auto;
+      display: block;
+      pointer-events: none;
     }
 
     .peanut.happy {
@@ -1140,11 +1146,7 @@
       <div id="clueBox"></div>
 
       <div class="peanut" id="peanut">
-        <div class="eye left"></div>
-        <div class="eye right"></div>
-        <div class="cheek left"></div>
-        <div class="cheek right"></div>
-        <div class="smile"></div>
+        <img src="peanut_character.png" alt="Peanut character">
       </div>
 
       <div class="message" id="message">Help Peanut escape! Tap objects in the living room to find a picture clue.</div>
@@ -1287,14 +1289,14 @@
 
     const houseObjects = {
       living: [
-        /* Rug centered in front of the couch. */
-        { id: "rug", label: "Rug", src: "rug.png", width: "clamp(165px, 28vw, 410px)", x: 31, y: 79, z: 13, hideLabel: true },
-        /* Smaller, slightly left, and higher so it reads as being against the back wall under the window. */
-        { id: "couch", label: "Couch", src: "couch.png", width: "clamp(162px, 23vw, 350px)", x: 31, y: 52, z: 17, hideLabel: true },
-        /* Side table spaced farther left from the couch. */
-        { id: "table", label: "Side Table", src: "table.png", width: "clamp(78px, 9.5vw, 145px)", x: 13, y: 60, z: 18, hideLabel: true },
-        /* Floor lamp placed back in the room corner. */
-        { id: "lamp", label: "Lamp", src: "lamp.png", width: "clamp(38px, 4.8vw, 74px)", x: 50, y: 50, z: 16, hideLabel: true }
+        /* Rug centered in front of the couch with a little more room on the floor. */
+        { id: "rug", label: "Rug", src: "rug.png", width: "clamp(162px, 27vw, 390px)", x: 30.5, y: 80, z: 13, hideLabel: true },
+        /* Couch tucked under the window and slightly back against the wall. */
+        { id: "couch", label: "Couch", src: "couch.png", width: "clamp(160px, 22vw, 338px)", x: 31, y: 53, z: 17, hideLabel: true },
+        /* End table moved a touch away from the couch for cleaner spacing. */
+        { id: "table", label: "Side Table", src: "table.png", width: "clamp(76px, 9.2vw, 140px)", x: 13.5, y: 61, z: 18, hideLabel: true },
+        /* Lamp slightly bigger and a little closer to the couch while still in the corner. */
+        { id: "lamp", label: "Lamp", src: "lamp.png", width: "clamp(40px, 5vw, 78px)", x: 50, y: 50, z: 16, hideLabel: true }
       ],
       kitchen: [
         { id: "fridge", label: "Fridge", type: "fridge-object", x: 18, y: 58 },
@@ -1470,6 +1472,7 @@
 
     function renderBackground(type) {
       peanut.classList.remove("happy");
+      updatePeanutPosition(type);
 
       // These names match the exact files shown in the GitHub recording.
       const art = {
@@ -1499,6 +1502,28 @@
       }
 
       background.innerHTML = '<div class="wall"></div><div class="floor"></div>';
+    }
+
+    function updatePeanutPosition(type) {
+      const poses = {
+        living:    { left: "56%", bottom: "8%",  width: "clamp(88px, 11.5vw, 148px)" },
+        kitchen:   { left: "56%", bottom: "8%",  width: "clamp(88px, 11.5vw, 148px)" },
+        bathroom:  { left: "60%", bottom: "8%",  width: "clamp(84px, 11vw, 140px)" },
+        bedroom:   { left: "59%", bottom: "8%",  width: "clamp(88px, 11.5vw, 148px)" },
+        garden:    { left: "77%", bottom: "8%",  width: "clamp(88px, 11.5vw, 148px)" },
+        garage:    { left: "73%", bottom: "8%",  width: "clamp(88px, 11.5vw, 148px)" },
+        bus:       { left: "77%", bottom: "8%",  width: "clamp(84px, 11vw, 140px)" },
+        classroom: { left: "75%", bottom: "8%",  width: "clamp(88px, 11.5vw, 148px)" },
+        library:   { left: "75%", bottom: "8%",  width: "clamp(88px, 11.5vw, 148px)" },
+        schoolExit:{ left: "72%", bottom: "8%",  width: "clamp(88px, 11.5vw, 148px)" },
+        schoolYard:{ left: "78%", bottom: "8%",  width: "clamp(88px, 11.5vw, 148px)" },
+        map:       { left: "52%", bottom: "7%",  width: "clamp(88px, 11vw, 138px)" }
+      };
+
+      const pose = poses[type] || { left: "54%", bottom: "8%", width: "clamp(88px, 11.5vw, 148px)" };
+      peanut.style.left = pose.left;
+      peanut.style.bottom = pose.bottom;
+      peanut.style.width = pose.width;
     }
 
     function shakeObject(el) {
